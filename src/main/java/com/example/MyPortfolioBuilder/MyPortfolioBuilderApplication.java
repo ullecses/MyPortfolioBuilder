@@ -8,6 +8,7 @@ public class MyPortfolioBuilderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyPortfolioBuilderApplication.class, args);
+
 	}
 
 }
