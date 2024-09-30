@@ -1,2 +1,3 @@
 # MyPortfolioBuilder
 The project is a web service that allows users to create and publish online portfolios of professional skills, projects and company achievements. The goal of the system is to create a convenient and accessible tool that allows users to quickly set up a personalized portfolio using excellent technical methods. The system also supports multimedia, provides mobile adaptation and allows users to analyze the traffic of their portfolio.
+The stack of technologies used: Java, Spring Boot (Spring Data JPA, Spring Security, Spring Web), PostgreSQL, Hibernate, Log4J, Maven, Lombok, pgAdmin.
