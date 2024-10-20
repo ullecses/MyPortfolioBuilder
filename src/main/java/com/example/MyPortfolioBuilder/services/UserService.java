@@ -1,7 +1,7 @@
-package com.example.MyPortfolioBuilder.service;
+package com.example.MyPortfolioBuilder.services;
 
-import com.example.MyPortfolioBuilder.model.User;
-import com.example.MyPortfolioBuilder.repository.UserRepository;
+import com.example.MyPortfolioBuilder.models.User;
+import com.example.MyPortfolioBuilder.repositories.UserRepository;
 import com.example.MyPortfolioBuilder.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

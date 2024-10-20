@@ -1,6 +1,5 @@
 package com.example.MyPortfolioBuilder.models;
 
-import com.example.MyPortfolioBuilder.models.Portfolio;
 import jakarta.persistence.*;
 
 @Entity

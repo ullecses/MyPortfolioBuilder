@@ -12,6 +12,10 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Автоинкрементируемый ID
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name = "title", nullable = false) // Столбец title не может быть пустым
     private String title;
 
@@ -32,6 +36,9 @@ public class Portfolio {
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Work> works;
+
+    @Lob
+    private byte[] photo;
 
     // Конструкторы
     public Portfolio() {

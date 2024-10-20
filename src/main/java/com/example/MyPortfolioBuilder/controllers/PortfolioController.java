@@ -1,6 +1,6 @@
-package com.example.MyPortfolioBuilder.Controllers;
+package com.example.MyPortfolioBuilder.controllers;
 
-import com.example.MyPortfolioBuilder.services.*;
+import com.example.MyPortfolioBuilder.services.PortfolioService;
 import com.example.MyPortfolioBuilder.models.*;
 
 import org.springframework.beans.factory.annotation.Autowired;

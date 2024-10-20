@@ -1,7 +1,7 @@
-package com.example.MyPortfolioBuilder.controller;
+package com.example.MyPortfolioBuilder.controllers;
 
-import com.example.MyPortfolioBuilder.model.User;
-import com.example.MyPortfolioBuilder.service.UserService;
+import com.example.MyPortfolioBuilder.models.User;
+import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
