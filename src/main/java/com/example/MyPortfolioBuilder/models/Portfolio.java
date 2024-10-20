@@ -12,10 +12,6 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Автоинкрементируемый ID
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @Column(name = "title", nullable = false) // Столбец title не может быть пустым
     private String title;
 
@@ -28,8 +24,9 @@ public class Portfolio {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Picture> pictures;
@@ -49,7 +46,7 @@ public class Portfolio {
         this.description = description;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        this.userId = userId;
+        this.user = user;
     }
 
     // Геттеры и сеттеры
@@ -93,13 +90,14 @@ public class Portfolio {
         this.updatedAt = updatedAt;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     public List<Work> getWorks() {
         return works;
     }

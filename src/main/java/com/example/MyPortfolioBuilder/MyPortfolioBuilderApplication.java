@@ -10,5 +10,4 @@ public class MyPortfolioBuilderApplication {
 		SpringApplication.run(MyPortfolioBuilderApplication.class, args);
 
 	}
-
 }
