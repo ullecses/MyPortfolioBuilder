@@ -18,8 +18,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+//    @Column(nullable = false)
+//    private String password;
 
     @Column(name = "created_at")
     private LocalDate createdAt;

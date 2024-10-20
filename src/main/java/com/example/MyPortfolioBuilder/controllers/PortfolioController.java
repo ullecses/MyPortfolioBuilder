@@ -3,6 +3,10 @@ package com.example.MyPortfolioBuilder.controllers;
 import com.example.MyPortfolioBuilder.services.PortfolioService;
 import com.example.MyPortfolioBuilder.models.*;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
