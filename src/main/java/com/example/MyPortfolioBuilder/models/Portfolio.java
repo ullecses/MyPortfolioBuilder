@@ -34,19 +34,15 @@ public class Portfolio {
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Work> works;
 
-    @Lob
-    private byte[] photo;
-
     // Конструкторы
     public Portfolio() {
     }
 
-    public Portfolio(String title, String description, Long userId) {
+    public Portfolio(String title, String description) {
         this.title = title;
         this.description = description;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        this.user = user;
     }
 
     // Геттеры и сеттеры
@@ -97,6 +93,7 @@ public class Portfolio {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     public List<Work> getWorks() {
         return works;

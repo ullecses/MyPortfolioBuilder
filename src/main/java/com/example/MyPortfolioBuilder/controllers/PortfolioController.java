@@ -1,8 +1,10 @@
 package com.example.MyPortfolioBuilder.controllers;
 
+import com.example.MyPortfolioBuilder.dto.PortfolioRequestDTO;
 import com.example.MyPortfolioBuilder.services.PortfolioService;
 import com.example.MyPortfolioBuilder.models.*;
 
+import com.example.MyPortfolioBuilder.services.UserService;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -13,14 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/portfolios")
 public class PortfolioController {
 
+
     @Autowired
     private PortfolioService portfolioService;
+    @Autowired
+    private UserService userService;
+
 
     // Получить список всех портфолио
     @GetMapping
@@ -38,15 +45,17 @@ public class PortfolioController {
 
     // Создать новое портфолио
     @PostMapping
-    public ResponseEntity<Portfolio> createPortfolio(@RequestBody Portfolio portfolio) {
-        Portfolio newPortfolio = portfolioService.createPortfolio(portfolio);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newPortfolio);
+    public ResponseEntity<Portfolio> createPortfolio(@RequestBody PortfolioRequestDTO portfolioRequest) {
+        // Сохраняем портфолио
+        Portfolio savedPortfolio = portfolioService.createPortfolio(portfolioRequest);
+
+        return ResponseEntity.ok(savedPortfolio);
     }
 
     // Обновить портфолио
     @PutMapping("/{id}")
         public ResponseEntity<Portfolio> updatePortfolio(@PathVariable Long id, @RequestBody Portfolio portfolioDetails) {
-            Portfolio updatedPortfolio = portfolioService.updatePortfolio(id, portfolioDetails);
+        Portfolio updatedPortfolio = portfolioService.updatePortfolio(id, portfolioDetails);
             return ResponseEntity.ok(updatedPortfolio);
         }
 

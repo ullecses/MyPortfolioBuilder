@@ -1,10 +1,13 @@
 package com.example.MyPortfolioBuilder.services;
 
+import com.example.MyPortfolioBuilder.dto.PortfolioRequestDTO;
 import com.example.MyPortfolioBuilder.models.Portfolio;
+import com.example.MyPortfolioBuilder.models.User;
 import com.example.MyPortfolioBuilder.repositories.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +15,13 @@ import java.util.Optional;
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
+    @Autowired
+    private UserService userService;
+
 
     @Autowired
     public PortfolioService(PortfolioRepository portfolioRepository) {
+
         this.portfolioRepository = portfolioRepository;
     }
 
@@ -27,7 +34,19 @@ public class PortfolioService {
         return portfolio.orElseThrow(() -> new RuntimeException("Portfolio not found with id: " + id));
     }
 
-    public Portfolio createPortfolio(Portfolio portfolio) {
+    public Portfolio createPortfolio(PortfolioRequestDTO portfolioRequest) {
+
+        User user = userService.findById(portfolioRequest.getUser_id())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + portfolioRequest.getUser_id()));
+
+        // Создаем новый объект Portfolio и ассоциируем с пользователем
+        Portfolio portfolio = new Portfolio();
+        portfolio.setTitle(portfolioRequest.getTitle());
+        portfolio.setUser(user);
+        portfolio.setDescription(portfolioRequest.getDescription());
+        portfolio.setCreatedAt(LocalDateTime.now());
+        portfolio.setCreatedAt(LocalDateTime.now());
+
         return portfolioRepository.save(portfolio);
     }
 
@@ -38,6 +57,7 @@ public class PortfolioService {
         // Обновляем поля портфолио
         existingPortfolio.setTitle(portfolioDetails.getTitle());
         existingPortfolio.setDescription(portfolioDetails.getDescription());
+        existingPortfolio.setUpdatedAt(LocalDateTime.now());
 
         return portfolioRepository.save(existingPortfolio);
     }

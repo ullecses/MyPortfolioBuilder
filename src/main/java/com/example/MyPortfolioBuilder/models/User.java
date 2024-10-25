@@ -1,11 +1,16 @@
 package com.example.MyPortfolioBuilder.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -68,6 +73,11 @@ public class User {
     }
 
     public void setCreatedAt(LocalDate now) {
+    }
+
+    public Long getId()
+    {
+        return this.id;
     }
 
     /*public String getPassword() {
