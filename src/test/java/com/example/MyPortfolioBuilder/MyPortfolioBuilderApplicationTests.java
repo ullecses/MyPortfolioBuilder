@@ -9,5 +9,4 @@ class MyPortfolioBuilderApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
