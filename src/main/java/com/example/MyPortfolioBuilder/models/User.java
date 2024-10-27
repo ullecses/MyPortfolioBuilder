@@ -17,14 +17,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-//    @Column(nullable = false)
-//    private String password;
+
+    @Column(nullable = false, name = "password_hash")
+    private String password;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
@@ -35,8 +38,13 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "citizenship")
     private String citizenship;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     // Связь с портфолио
@@ -47,21 +55,21 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Professional> professionals;
 
-    public void setName(String name) {
+    public void setName(String name) { this.name = name;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public void setSurname(String surname) {
+    public void setSurname(String surname) { this.surname = surname;
     }
 
     public String getSurname() {
         return this.surname;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) { this.email = email;
     }
 
     public String getEmail() {
@@ -69,10 +77,10 @@ public class User {
     }
 
 
-    public void setPassword(String hashedPassword) {
+    public void setPassword(String hashedPassword) { this.password = hashedPassword;
     }
 
-    public void setCreatedAt(LocalDate now) {
+    public void setCreatedAt(LocalDate now) { this.createdAt = now;
     }
 
     public Long getId()
@@ -80,7 +88,7 @@ public class User {
         return this.id;
     }
 
-    /*public String getPassword() {
-
-    }*/
+    public String getPassword() {
+        return this.password;
+    }
 }
