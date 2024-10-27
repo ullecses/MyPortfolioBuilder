@@ -1,5 +1,6 @@
 package com.example.MyPortfolioBuilder.controllers;
 
+import com.example.MyPortfolioBuilder.dto.UserRequestDTO;
 import com.example.MyPortfolioBuilder.models.User;
 import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class UserController {
 
     // Обработка POST-запроса для регистрации нового пользователя
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestParam String email, @RequestParam String password) {
-        User newUser = userService.registerUser(email, password);
+    public ResponseEntity<User> registerUser(@RequestBody UserRequestDTO userDetails) {
+        User newUser = userService.registerUser(userDetails.getEmail(), userDetails.getPassword());
         return ResponseEntity.ok(newUser);
     }
 
@@ -41,11 +42,11 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    /*// Обновить пользователя
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         return userService.updateUser(id, userDetails);
-    }*/
+    }
 
     // Удалить пользователя
     @DeleteMapping("/{id}")

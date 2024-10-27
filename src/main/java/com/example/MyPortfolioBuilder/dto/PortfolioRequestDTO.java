@@ -29,7 +29,6 @@ public class PortfolioRequestDTO {
     }
 
     private String description;
-    // Пример поля, которое будет передано в запросе
-    private Long user_id;   // ID пользователя, переданный в запросе
+    private Long user_id;
 }
 

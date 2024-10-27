@@ -30,7 +30,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
     // Метод для проверки логина
     /*public boolean login(String email, String rawPassword) {
         User user = userRepository.findByEmail(email);
@@ -55,17 +54,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /*// Обновить пользователя
     public User updateUser(Long id, User userDetails) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setName(userDetails.getName());
         user.setSurname(userDetails.getSurname());
         user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword());
+        user.setPassword(PasswordUtil.hashPassword(userDetails.getPassword()));
 
         return userRepository.save(user);
-    }*/
+    }
 
     // Удалить пользователя
     public void deleteUser(Long id) {
