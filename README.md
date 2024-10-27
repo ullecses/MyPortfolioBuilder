@@ -4,6 +4,8 @@ The project is a web service that allows users to create and publish online port
 The stack of technologies used: Java, Spring Boot (Spring Data JPA, Spring Security, Spring Web), PostgreSQL, Hibernate, Log4J, Maven, Lombok, pgAdmin.
 
 # API Endpoints
+http://localhost:8080/swagger-ui/index.html#/
+http://localhost:8080/v3/api-docs
 
 ## Users
 
