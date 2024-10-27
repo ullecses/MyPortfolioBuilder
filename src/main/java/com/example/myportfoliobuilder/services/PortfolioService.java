@@ -1,9 +1,9 @@
-package com.example.MyPortfolioBuilder.services;
+package com.example.myportfoliobuilder.services;
 
-import com.example.MyPortfolioBuilder.dto.PortfolioRequestDTO;
-import com.example.MyPortfolioBuilder.models.Portfolio;
-import com.example.MyPortfolioBuilder.models.User;
-import com.example.MyPortfolioBuilder.repositories.PortfolioRepository;
+import com.example.myportfoliobuilder.dto.PortfolioRequestDTO;
+import com.example.myportfoliobuilder.models.Portfolio;
+import com.example.myportfoliobuilder.models.User;
+import com.example.myportfoliobuilder.repositories.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +15,15 @@ import java.util.Optional;
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
-    @Autowired
-    private UserService userService;
+    private static final String PORTFOLIO_NOT_FOUND = "Portfolio not found with id: ";
+    private final UserService userService;
 
 
     @Autowired
-    public PortfolioService(PortfolioRepository portfolioRepository) {
+    public PortfolioService(PortfolioRepository portfolioRepository, UserService userService) {
 
         this.portfolioRepository = portfolioRepository;
+        this.userService = userService;
     }
 
     public List<Portfolio> getAllPortfolios() {
@@ -31,13 +32,13 @@ public class PortfolioService {
 
     public Portfolio getPortfolioById(Long id) {
         Optional<Portfolio> portfolio = portfolioRepository.findById(id);
-        return portfolio.orElseThrow(() -> new RuntimeException("Portfolio not found with id: " + id));
+        return portfolio.orElseThrow(() -> new RuntimeException(PORTFOLIO_NOT_FOUND + id));
     }
 
     public Portfolio createPortfolio(PortfolioRequestDTO portfolioRequest) {
 
-        User user = userService.findById(portfolioRequest.getUser_id())
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + portfolioRequest.getUser_id()));
+        User user = userService.findById(portfolioRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + portfolioRequest.getUserId()));
 
         // Создаем новый объект Portfolio и ассоциируем с пользователем
         Portfolio portfolio = new Portfolio();
@@ -52,7 +53,7 @@ public class PortfolioService {
 
     public Portfolio updatePortfolio(Long id, Portfolio portfolioDetails) {
         Portfolio existingPortfolio = portfolioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Portfolio not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException(PORTFOLIO_NOT_FOUND + id));
 
         // Обновляем поля портфолио
         existingPortfolio.setTitle(portfolioDetails.getTitle());
@@ -64,7 +65,7 @@ public class PortfolioService {
 
     public void deletePortfolio(Long id) {
         Portfolio existingPortfolio = portfolioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Portfolio not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException(PORTFOLIO_NOT_FOUND + id));
         portfolioRepository.delete(existingPortfolio);
     }
 }

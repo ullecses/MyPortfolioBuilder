@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder.models;
+package com.example.myportfoliobuilder.models;
 
 import jakarta.persistence.*;
 
@@ -21,8 +21,6 @@ public class Professional {
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_type")
     private Enums.EmploymentType employmentType;
-
-    private String languages;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "work_character")

@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder.dto;
+package com.example.myportfoliobuilder.dto;
 
 
 public class UserRequestDTO {

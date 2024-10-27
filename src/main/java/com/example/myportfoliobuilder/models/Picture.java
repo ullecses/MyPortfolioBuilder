@@ -1,18 +1,14 @@
-package com.example.MyPortfolioBuilder.models;
+package com.example.myportfoliobuilder.models;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "works")
-public class Work {
+@Table(name = "pictures")
+public class Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    private String title;
-    private String description;
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id", nullable = false)
@@ -26,20 +22,12 @@ public class Work {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUrl() {
+        return url;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Portfolio getPortfolio() {
@@ -49,5 +37,9 @@ public class Work {
     public void setPortfolio(Portfolio portfolio) {
         this.portfolio = portfolio;
     }
+
+    private String url;
+
+
 
 }

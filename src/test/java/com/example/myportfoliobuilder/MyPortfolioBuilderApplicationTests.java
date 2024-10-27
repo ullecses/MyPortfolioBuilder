@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder;
+package com.example.myportfoliobuilder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,5 +8,6 @@ class MyPortfolioBuilderApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//in Future do this
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder.models;
+package com.example.myportfoliobuilder.models;
 
 public class Enums {
 

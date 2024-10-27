@@ -127,7 +127,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>com.example.MyPortfolioBuilder.MyPortfolioBuilderApplication</mainClass> <!-- Замени на полное имя твоего класса с методом main -->
+					<mainClass>com.example.myportfoliobuilder.MyPortfolioBuilderApplication</mainClass> <!-- Замени на полное имя твоего класса с методом main -->
 				</configuration>
 			</plugin>
 		</plugins>

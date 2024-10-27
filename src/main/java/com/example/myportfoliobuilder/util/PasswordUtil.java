@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder.util;
+package com.example.myportfoliobuilder.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,4 +16,10 @@ public class PasswordUtil {
     public static boolean checkPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
+
+    private PasswordUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
 }

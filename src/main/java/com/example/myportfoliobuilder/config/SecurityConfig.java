@@ -1,4 +1,4 @@
-package com.example.MyPortfolioBuilder.config;
+package com.example.myportfoliobuilder.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
@@ -29,7 +28,7 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Отключаем CSRF (если это нужно)
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(AbstractHttpConfigurer::disable)
                 // Разрешаем все запросы без аутентификации
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
