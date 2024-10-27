@@ -2,6 +2,7 @@ package com.example.MyPortfolioBuilder.controllers;
 
 import com.example.MyPortfolioBuilder.dto.UserRequestDTO;
 import com.example.MyPortfolioBuilder.models.User;
+//import com.example.MyPortfolioBuilder.services.JwtService;
 import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //@Autowired
+    //private JwtService jwtService;
+
     // Получить всех пользователей
     @GetMapping
     public List<User> getAllUsers() {
@@ -28,6 +32,27 @@ public class UserController {
     public ResponseEntity<User> registerUser(@RequestBody UserRequestDTO userDetails) {
         User newUser = userService.registerUser(userDetails.getEmail(), userDetails.getPassword());
         return ResponseEntity.ok(newUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserRequestDTO userDetails) {
+        try {
+            String result;
+            boolean token = userService.login(userDetails.getEmail(), userDetails.getPassword());
+            if (token) {
+                result = "ok";
+            } else {
+                result = "not ok";
+            }
+            return ResponseEntity.ok(result);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{email}")
+    public Optional<User> getUserByEmail(@PathVariable String email) {
+        return userService.findByEmail(email);
     }
 
     // Получить пользователя по ID

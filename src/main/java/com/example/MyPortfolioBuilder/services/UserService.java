@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-
     @Autowired
     private UserRepository userRepository;
 
@@ -31,14 +30,15 @@ public class UserService {
         return userRepository.save(user);
     }
     // Метод для проверки логина
-    /*public boolean login(String email, String rawPassword) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
+    public boolean login(String email, String rawPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get(); // Получаем пользователя
             // Проверка пароля
             return PasswordUtil.checkPassword(rawPassword, user.getPassword());
         }
         return false;
-    }*/
+    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -47,6 +47,10 @@ public class UserService {
     // Найти пользователя по ID
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     // Сохранить нового пользователя

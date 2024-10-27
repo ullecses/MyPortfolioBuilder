@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://localhost:5432/MyPortfolioBuilder"; // URL для подключения
-    private static final String USER = "postgres"; // Имя пользователя PostgreSQL
-    private static final String PASSWORD = "7340"; // Пароль PostgreSQL
+    private static final String USER = "builder"; // Имя пользователя PostgreSQL
+    private static final String PASSWORD = "656565"; // Пароль PostgreSQL
 
     public static void  connect() {
         Connection connection = null;
