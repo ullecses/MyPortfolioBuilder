@@ -1,73 +1,105 @@
 package com.example.MyPortfolioBuilder.config;
 
+import com.example.MyPortfolioBuilder.filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
+
+import static com.example.MyPortfolioBuilder.config.WebConfig.IPFRONT;
+
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
-    /*private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final JwtService jwtService;
+public class SecurityConfig {
+    private final JwtAuthenticationFilter jwtAuthFilter; // фильтр аутентификации JWT
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, JwtService jwtService) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.jwtService = jwtService;
-    }*/
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
 
-
-    //    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/api/users/register", "/actuator/health", "/test-db", "/api/portfolios").permitAll() // Разрешить доступ без аутентификации
-//                        .anyRequest().authenticated() // Остальные запросы требуют аутентификации
-//                )
-//                .csrf(AbstractHttpConfigurer::disable) // Отключить CSRF через лямбда-выражение
-//                .httpBasic(AbstractHttpConfigurer::disable); // Отключить базовую аутентификацию через лямбда-выражение
-//
-//        return http.build();
-//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Отключаем CSRF (если это нужно)
-        http.csrf(csrf -> csrf.disable())
-                // Разрешаем все запросы без аутентификации
+        http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Включаем поддержку CORS
+                .csrf(csrf -> csrf.disable()) // Отключаем CSRF, если это необходимо
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .requestMatchers("/public/**").permitAll() // Доступ ко всем ресурсам, начинающимся с /public
+                        .requestMatchers("/users/**").authenticated() // Доступ к /user/** только для аутентифицированных пользователей
+                        .anyRequest().permitAll() // Разрешаем остальные запросы (опционально)
+                )
+                .formLogin(form -> form
+                        .loginPage("/login") // Указываем кастомный URL для страницы логина
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .permitAll()
                 );
 
         return http.build();
     }
-    /*@Bean
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Укажите здесь URL фронтенда
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*")); // Разрешаем все заголовки
+        configuration.setAllowCredentials(true); // Разрешаем учетные данные
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Настройки CORS для всех маршрутов
+        return source;
+    }
+
+
+    // AuthenticationManager Bean
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+}
+
+/*@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    private final JwtAuthenticationFilter jwtAuthFilter; // фильтр аутентификации JWT
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable()) // Отключаем CSRF, если это необходимо
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register", "/api/users/login").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/public/**").permitAll() // Доступ ко всем ресурсам, начинающимся с /public
+                        .requestMatchers("/users/**").authenticated() // Доступ к /user/** только для аутентифицированных пользователей
+                        .anyRequest().permitAll() // Разрешаем остальные запросы (опционально)
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .formLogin(form -> form
+                        .loginPage("/login") // Указываем кастомный URL для страницы логина
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .permitAll()
+                );
 
         return http.build();
-    }*/
-
-    /*@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
-    // Определяем AuthenticationManager, чтобы он был доступен для авторизации пользователя
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-        return auth.build();
-    }
 
+    // AuthenticationManager Bean
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
-}
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+}*/

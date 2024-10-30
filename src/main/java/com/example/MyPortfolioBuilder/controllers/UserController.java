@@ -3,6 +3,7 @@ package com.example.MyPortfolioBuilder.controllers;
 import com.example.MyPortfolioBuilder.dto.UserRequestDTO;
 import com.example.MyPortfolioBuilder.models.User;
 //import com.example.MyPortfolioBuilder.services.JwtService;
+import com.example.MyPortfolioBuilder.services.JwtService;
 import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,15 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.MyPortfolioBuilder.config.WebConfig.IPFRONT;
+
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = IPFRONT)
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    //@Autowired
-    //private JwtService jwtService;
+    @Autowired
+    private JwtService jwtService;
 
     // Получить всех пользователей
     @GetMapping
@@ -40,7 +44,7 @@ public class UserController {
             String result;
             boolean token = userService.login(userDetails.getEmail(), userDetails.getPassword());
             if (token) {
-                result = "ok";
+                result = jwtService.generateToken(userDetails.getEmail());
             } else {
                 result = "not ok";
             }
@@ -50,13 +54,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public Optional<User> getUserByEmail(@PathVariable String email) {
         return userService.findByEmail(email);
     }
 
-    // Получить пользователя по ID
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }

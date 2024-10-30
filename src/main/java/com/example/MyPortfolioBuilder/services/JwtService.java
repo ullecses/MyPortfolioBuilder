@@ -3,73 +3,46 @@ package com.example.MyPortfolioBuilder.services;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
-/*@Service
+@Service
 public class JwtService {
 
-    @Value("${jwt.secret}")
-    private String secretKey;
+    private final String secretKey = "YourSecretKey";
+    private final long expirationTime = 86400000; // Время жизни токена в миллисекундах (1 день)
 
-    @Value("${jwt.expiration}")
-    private Long jwtExpirationInMillis;
-
-    private final UserDetailsService userDetailsService;
-
-    public JwtService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
-    }
-
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    public Boolean validateToken(String token) {
-        String username = extractUsername(token);
-        return (username != null && !isTokenExpired(token));
-    }
-
-    private String createToken(Map<String, Object> claims, String subject) {
+    // Метод генерации токена
+    public String generateToken(String email) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMillis))
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-        return claimsResolver.apply(claims);
+    // Метод для извлечения email из токена
+    public String extractEmail(String token) {
+        return getClaims(token).getSubject();
     }
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    // Метод для проверки токена
+    public boolean isTokenValid(String token, String email) {
+        return (email.equals(extractEmail(token)) && !isTokenExpired(token));
     }
 
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+    // Проверка на истечение срока действия токена
+    private boolean isTokenExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
     }
 
-    public Authentication getAuthentication(String token, String username, HttpServletRequest request) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
+    // Извлечение Claims из токена
+    private Claims getClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
-}*/
+}

@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.MyPortfolioBuilder.config.WebConfig.IPFRONT;
+
 
 @RestController
 @RequestMapping("/api/portfolios")
+@CrossOrigin(origins = IPFRONT)
 public class PortfolioController {
 
 
