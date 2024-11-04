@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.example.MyPortfolioBuilder.config.WebConfig.IPFRONT;
@@ -33,22 +35,32 @@ public class UserController {
 
     // Обработка POST-запроса для регистрации нового пользователя
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody UserRequestDTO userDetails) {
+    public ResponseEntity<?> registerUser(@RequestBody UserRequestDTO userDetails) {
         User newUser = userService.registerUser(userDetails.getEmail(), userDetails.getPassword());
-        return ResponseEntity.ok(newUser);
+
+        String token = jwtService.generateToken(userDetails.getEmail());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", newUser);
+        response.put("token", token);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserRequestDTO userDetails) {
         try {
-            String result;
-            boolean token = userService.login(userDetails.getEmail(), userDetails.getPassword());
-            if (token) {
-                result = jwtService.generateToken(userDetails.getEmail());
+            boolean isAuthenticated = userService.login(userDetails.getEmail(), userDetails.getPassword());
+
+            String token;
+
+            if (isAuthenticated) {
+                token = jwtService.generateToken(userDetails.getEmail());
+                System.out.println("Token: " + token);
             } else {
-                result = "not ok";
+                token = "not ok";
             }
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(token);
         } catch (RuntimeException e) {
             return ResponseEntity.status(401).body(e.getMessage());
         }
