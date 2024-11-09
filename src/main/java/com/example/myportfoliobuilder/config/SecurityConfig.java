@@ -31,6 +31,7 @@ public class SecurityConfig{
         http.csrf(AbstractHttpConfigurer::disable)
                 // Разрешаем все запросы без аутентификации
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/chat").permitAll()
                         .anyRequest().permitAll()
                 );
 
