@@ -1,5 +1,5 @@
 # Используем образ с Java и Maven
-FROM maven:3.8.5-openjdk-17 as build
+FROM maven:3.8.5-openjdk-17 AS build
 
 # Устанавливаем рабочую директорию
 WORKDIR /app

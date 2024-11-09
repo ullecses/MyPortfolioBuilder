@@ -1,6 +1,6 @@
-package com.example.MyPortfolioBuilder.repositories;
+package com.example.myportfoliobuilder.repositories;
 
-import com.example.MyPortfolioBuilder.models.Portfolio;
+import com.example.myportfoliobuilder.models.Portfolio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
