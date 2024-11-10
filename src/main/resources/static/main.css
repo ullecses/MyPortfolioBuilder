@@ -14,6 +14,7 @@ html, body {
 }
 
 .header {
+	overflow: hidden;
 	width: 100%;
 	height: 10%;
 	padding: 10px;
@@ -23,8 +24,9 @@ html, body {
 }
 
 .username {
+	overflow: hidden;
 	width: 100%;
-	height: 10%;
+	height: 15%;
 	padding: 0px;
 	margin: 0px;
 	background-color: white;
@@ -32,8 +34,9 @@ html, body {
 }
 
 .members {
+	overflow: auto;
 	width: 100%;
-	height: 40%;
+	height: 35%;
 	padding: 0px;
 	margin: 0px;
 	background-color: white;
@@ -41,6 +44,7 @@ html, body {
 }
 
 .messages {
+	overflow: auto;
 	width: 100%;
 	height: 40%;
 	padding: 0px;
@@ -53,8 +57,38 @@ html, body {
 	padding: 5px;
 }
 
+.private {
+	color: red;
+}
+
 .center {
 	margin: auto;
 	text-align: center;
 	width: 50%;
+}
+
+#sendmessage {
+	display: none;
+	visibility: hidden;
+	background-color: white;
+}
+
+#messageitem:hover {
+	cursor: pointer;
+}
+
+.red:hover {
+	cursor: pointer;
+}
+
+.black:hover {
+	cursor: pointer;
+}
+
+.red {
+	color : red;
+}
+
+.black {
+	color : black;
 }

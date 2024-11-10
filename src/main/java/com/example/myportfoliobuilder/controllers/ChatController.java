@@ -1,21 +1,18 @@
 package com.example.myportfoliobuilder.controllers;
 
 import com.example.myportfoliobuilder.models.*;
-import com.example.myportfoliobuilder.services.MemberStore;
+import com.example.myportfoliobuilder.services.ChatService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.util.HtmlUtils;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.context.event.EventListener;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
@@ -24,25 +21,27 @@ import com.example.myportfoliobuilder.models.ChatUser;
 @Controller
 public class ChatController {
 
-    private final MemberStore memberStore;
+    private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public ChatController(MemberStore memberStore, SimpMessagingTemplate simpMessagingTemplate) {
-        this.memberStore = memberStore;
+    public ChatController(ChatService chatService, SimpMessagingTemplate simpMessagingTemplate) {
+        this.chatService = chatService;
         this.simpMessagingTemplate = simpMessagingTemplate;
+    }
+    private void sendMembersList() {
+        List<ChatUser> memberList = chatService.getMembersList();
+        memberList.forEach(
+                sendUser -> simpMessagingTemplate.convertAndSendToUser(sendUser.id(), "/topic/users", chatService.filterMemberListByUser(memberList, sendUser)));
     }
 
     @MessageMapping("/user")
     public void getusers(ChatUser user, SimpMessageHeaderAccessor headerAccessor) throws Exception {
-        ChatUser newUser = new ChatUser(user.id(), user.username());
+        ChatUser newUser = new ChatUser(user.id(), null, user.username());
         headerAccessor.getSessionAttributes().put("user", newUser);
-        memberStore.addMember(newUser);
-        if (!memberStore.getMembers().isEmpty()) {
-            simpMessagingTemplate.convertAndSend("/topic/users", memberStore.getMembers());
-        }
-        Message newMessage = new Message(newUser, null, Action.JOINED, Instant.now());
+        chatService.addMember(newUser);
+        sendMembersList();
+        Message newMessage = new Message(new ChatUser(null, null, user.username()), null, null, Action.JOINED, Instant.now());
         simpMessagingTemplate.convertAndSend("/topic/messages", newMessage);
-
     }
 
     @EventListener
@@ -62,12 +61,24 @@ public class ChatController {
         if (user == null) {
             return;
         }
-        memberStore.removeMember(user);
-        simpMessagingTemplate.convertAndSend("/topic/users", memberStore.getMembers());
+        chatService.removeMember(user);
+        sendMembersList();
 
-        Message message = new Message(user, "", Action.LEFT, Instant.now());
+        Message message = new Message(new ChatUser(null, null, user.username()), null, "", Action.LEFT, Instant.now());
         simpMessagingTemplate.convertAndSend("/topic/messages", message);
     }
 
+    @MessageMapping("/message")
+    public void getMessage(Message message) throws Exception {
+        Message newMessage = new Message(new ChatUser(null, message.user().serialId(), message.user().username()), message.receiverId(), message.comment(), message.action(), Instant.now());
+        simpMessagingTemplate.convertAndSend("/topic/messages", newMessage);
+    }
+
+    @MessageMapping("/privatemessage")
+    public void getPrivateMessage(Message message) throws Exception {
+        Message newMessage = new Message(new ChatUser(null, message.user().serialId(), message.user().username()), message.receiverId(), message.comment(), message.action(), Instant.now());
+        simpMessagingTemplate.convertAndSendToUser(chatService.getMember(message.receiverId()).id(), "/topic/privatemessages", newMessage);
+
+    }
 
 }
