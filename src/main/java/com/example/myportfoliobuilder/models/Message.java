@@ -1,3 +1,7 @@
 package com.example.myportfoliobuilder.models;
 
-public record Message(String name) {}
+import java.time.Instant;
+
+public record Message(ChatUser user, String comment, Action action, Instant timestamp) {
+
+}
