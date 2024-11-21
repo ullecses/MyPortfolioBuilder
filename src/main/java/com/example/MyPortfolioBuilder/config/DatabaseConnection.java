@@ -1,23 +1,43 @@
 package com.example.MyPortfolioBuilder.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-
-
+@Component
 public class DatabaseConnection {
-    private static final String URL = "jdbc:postgresql://localhost:5432/MyPortfolioBuilder"; // URL для подключения
-    private static final String USER = "builder"; // Имя пользователя PostgreSQL
-    private static final String PASSWORD = "656565"; // Пароль PostgreSQL
+    @Value("${spring.datasource.url}")  // Подставляем значение из application.properties
+    private String url;
 
-    public static void  connect() {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+    @Value("${spring.datasource.username}") // Подставляем значение из application.properties
+    private String user;
+
+    @Value("${spring.datasource.password}")  // Подставляем значение из application.properties
+    private String password;
+
+    private static String staticUrl;
+    private static String staticUser;
+    private static String staticPassword;
+
+    @Value("${spring.datasource.url}")
+    public void setStaticUrl(String url) {
+        DatabaseConnection.staticUrl = url;
+    }
+
+    @Value("${spring.datasource.username}")
+    public void setStaticUser(String user) {
+        DatabaseConnection.staticUser = user;
+    }
+
+    @Value("${spring.datasource.password}")
+    public void setStaticPassword(String password) {
+        DatabaseConnection.staticPassword = password;
+    }
+
+    public void connect() {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
             System.out.println("Connected to PostgreSQL database!");
         } catch (SQLException e) {
             System.out.println("Connection failed: " + e.getMessage());
