@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
