@@ -1,18 +1,19 @@
 package com.example.MyPortfolioBuilder.controllers;
 
 import com.example.MyPortfolioBuilder.dto.UserRequestDTO;
+import com.example.MyPortfolioBuilder.models.EmailVerificationToken;
 import com.example.MyPortfolioBuilder.models.User;
 //import com.example.MyPortfolioBuilder.services.JwtService;
+import com.example.MyPortfolioBuilder.repositories.EmailVerificationTokenRepository;
+import com.example.MyPortfolioBuilder.services.EmailService;
 import com.example.MyPortfolioBuilder.services.JwtService;
 import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static com.example.MyPortfolioBuilder.config.WebConfig.IPFRONT;
 
@@ -25,7 +26,14 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private EmailVerificationTokenRepository emailVerificationTokenRepository;
+
 
     // Получить всех пользователей
     @GetMapping
@@ -65,6 +73,46 @@ public class UserController {
             return ResponseEntity.status(401).body(e.getMessage());
         }
     }
+
+    // Отправить токен подтверждения email
+    @PostMapping("/send-verification-token")
+    public ResponseEntity<String> sendVerificationToken(@RequestParam("email") String email) {
+        Optional<EmailVerificationToken> tokenOptional = emailVerificationTokenRepository.findByEmail(email);
+
+        EmailVerificationToken emailVerificationToken = new EmailVerificationToken();
+        emailVerificationToken.setEmail(email);
+        emailVerificationToken.setToken(emailService.createVerificationToken());
+        emailVerificationToken.setExpiryDate(LocalDateTime.now().plusMinutes(20));
+
+        emailService.sendVerificationEmail(emailVerificationToken.getEmail(), emailVerificationToken.getToken());
+
+        emailVerificationTokenRepository.save(emailVerificationToken);
+
+        return ResponseEntity.ok("Verification email sent.");
+    }
+
+    // Проверка токена при подтверждении email
+    @GetMapping("/verify-email")
+    public ResponseEntity<String> verifyEmail(@RequestParam String token) {
+        Optional<EmailVerificationToken> tokenOptional = emailVerificationTokenRepository.findByToken(token);
+
+        if (tokenOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        EmailVerificationToken emailToken = tokenOptional.get();
+
+        if (emailToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.badRequest().body("Token expired. Please request a new verification link.");
+        }
+
+        emailToken.setVerified(true);
+
+        emailVerificationTokenRepository.save(emailToken);
+
+        return ResponseEntity.ok("Email successfully verified!");
+    }
+
 
     @GetMapping("/email/{email}")
     public Optional<User> getUserByEmail(@PathVariable String email) {

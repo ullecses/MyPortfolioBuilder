@@ -1,14 +1,18 @@
 package com.example.MyPortfolioBuilder.services;
 
+import com.example.MyPortfolioBuilder.models.EmailVerificationToken;
 import com.example.MyPortfolioBuilder.models.User;
+import com.example.MyPortfolioBuilder.repositories.EmailVerificationTokenRepository;
 import com.example.MyPortfolioBuilder.repositories.UserRepository;
 import com.example.MyPortfolioBuilder.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -16,8 +20,21 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private EmailVerificationTokenRepository emailVerificationTokenRepository;
+
+
     // Метод для регистрации нового пользователя
     public User registerUser(String email, String rawPassword) {
+        Optional<EmailVerificationToken> emailVerificationTokenOptional = emailVerificationTokenRepository.findByEmail(email);
+
+        if (emailVerificationTokenOptional.isPresent() && !emailVerificationTokenOptional.get().isVerified()) {
+            throw new RuntimeException("Email is not verified.");
+        }
+
         User user = new User();
         user.setEmail(email);
 
@@ -73,4 +90,5 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
 }
