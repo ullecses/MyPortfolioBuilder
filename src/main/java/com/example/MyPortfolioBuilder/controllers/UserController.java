@@ -9,6 +9,8 @@ import com.example.MyPortfolioBuilder.services.EmailService;
 import com.example.MyPortfolioBuilder.services.JwtService;
 import com.example.MyPortfolioBuilder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,12 +83,19 @@ public class UserController {
 
         EmailVerificationToken emailVerificationToken = new EmailVerificationToken();
         emailVerificationToken.setEmail(email);
-        emailVerificationToken.setToken(emailService.createVerificationToken());
+        emailVerificationToken.setVerified(false);
         emailVerificationToken.setExpiryDate(LocalDateTime.now().plusMinutes(20));
+        emailVerificationToken.setToken(emailService.createVerificationToken());
+
+        System.out.println("Дошло без ошибки");
 
         emailService.sendVerificationEmail(emailVerificationToken.getEmail(), emailVerificationToken.getToken());
 
+        System.out.println("Дошло без ошибки2");
+
         emailVerificationTokenRepository.save(emailVerificationToken);
+
+        System.out.println("Дошло без ошибки3");
 
         return ResponseEntity.ok("Verification email sent.");
     }
@@ -108,9 +117,11 @@ public class UserController {
 
         emailToken.setVerified(true);
 
-        emailVerificationTokenRepository.save(emailToken);
+        //emailVerificationTokenRepository.save(emailToken);
 
-        return ResponseEntity.ok("Email successfully verified!");
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header(HttpHeaders.LOCATION, "http://localhost:3000/register?email=" + emailToken.getEmail())
+                .build();
     }
 
 

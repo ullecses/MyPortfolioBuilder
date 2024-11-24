@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -24,7 +22,7 @@ public class EmailService {
 
     public void sendVerificationEmail(String recipientEmail, String token) {
         // Сформировать ссылку для подтверждения
-        String verificationLink = "http://localhost:8080/api/users/verify-email?token=" + token;
+        String verificationLink = "http://26.188.13.76:8080/api/users/verify-email?token=" + token;
 
         // Создать письмо
         MimeMessage message = mailSender.createMimeMessage();
