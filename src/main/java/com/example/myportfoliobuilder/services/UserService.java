@@ -15,12 +15,9 @@ import java.util.Optional;
 public class UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class);
-    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     // Метод для регистрации нового пользователя
     public User registerUser(String email, String rawPassword) {
@@ -45,6 +42,17 @@ public class UserService {
         return savedUser;
     }
 
+    // Метод для проверки логина
+    public boolean login(String email, String rawPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get(); // Получаем пользователя
+            // Проверка пароля
+            return PasswordUtil.checkPassword(rawPassword, user.getPassword());
+        }
+        return false;
+    }
+
     // Получить всех пользователей
     public List<User> findAll() {
         LOGGER.info("Fetching all users");
@@ -64,6 +72,10 @@ public class UserService {
         return user;
     }
 
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     // Сохранить нового пользователя
     public User saveUser(User user) {
         LOGGER.info("Saving user with email: " + user.getEmail());
@@ -77,7 +89,6 @@ public class UserService {
         return savedUser;
     }
 
-    // Обновить пользователя
     public User updateUser(Long id, User userDetails) {
         LOGGER.info("Updating user with id: " + id);
 
@@ -90,10 +101,9 @@ public class UserService {
         user.setSurname(userDetails.getSurname());
         user.setEmail(userDetails.getEmail());
         user.setPassword(PasswordUtil.hashPassword(userDetails.getPassword()));
-
         User updatedUser = userRepository.save(user);
         LOGGER.info("User updated successfully with id: " + updatedUser.getId());
-        return updatedUser;
+            return updatedUser;
     }
 
     // Удалить пользователя

@@ -11,17 +11,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.myportfoliobuilder.config.WebConfig.IPFRONT;
+
 @RestController
 @RequestMapping("/api/portfolios")
+@CrossOrigin(origins = IPFRONT)
 public class PortfolioController {
 
     private static final Logger LOGGER = Logger.getLogger(PortfolioController.class);
     private static final String IN_CONTROLLER = " in PortfolioController";
     private final PortfolioService portfolioService;
+    private final UserService userService;
 
     @Autowired
     public PortfolioController(PortfolioService portfolioService, UserService userService) {
         this.portfolioService = portfolioService;
+        this.userService = userService;
     }
 
     // Получить список всех портфолио
