@@ -64,7 +64,7 @@ public class UserController {
 
             if (isAuthenticated) {
                 token = jwtService.generateToken(userDetails.getEmail());
-                System.out.println("Token: " + token);
+                LOGGER.info("Token: " + token);
             } else {
                 token = "not ok";
             }
@@ -98,7 +98,7 @@ public class UserController {
         LOGGER.info("Received request to create a new user with email: " + user.getEmail() + IN_CONTROLLER);
         User createdUser = userService.saveUser(user);
         LOGGER.info("User created successfully with id: " + createdUser.getId());
-        return ResponseEntity.ok(createdUser);
+        return ResponseEntity.ok(createdUser).getBody();
     }
 
     // Обновить пользователя
@@ -107,7 +107,7 @@ public class UserController {
         LOGGER.info("Received request to update user with id: " + id + IN_CONTROLLER);
         User updatedUser = userService.updateUser(id, userDetails);
         LOGGER.info("User updated successfully with id: " + id);
-        return ResponseEntity.ok(updatedUser);
+        return ResponseEntity.ok(updatedUser).getBody();
     }
 
     // Удалить пользователя

@@ -24,7 +24,7 @@ public class UserService {
         LOGGER.info("Registering new user with email: " + email);
 
         // Проверка на существование пользователя с данным email
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(email).isPresent()) {
             LOGGER.warn("User with email " + email + " already exists.");
             throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
