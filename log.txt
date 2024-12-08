@@ -30,3 +30,128 @@
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting creation date: 2024-11-30
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
+2024-12-01 22:50:17 INFO  [main]: Connected to PostgreSQL database!
+2024-12-01 22:50:17 INFO  [main]: Database connection closed.
+2024-12-01 22:50:18 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-01 22:50:18 INFO  [restartedMain]: Database connection closed.
+2024-12-01 22:50:25 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-01 22:52:07 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-01 22:52:58 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-01 22:53:02 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-01 22:53:02 INFO  [restartedMain]: Database connection closed.
+2024-12-02 15:14:57 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-02 15:15:00 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-02 15:15:00 INFO  [restartedMain]: Database connection closed.
+2024-12-05 15:16:50 INFO  [main]: Portfolio object created with default constructor.
+2024-12-05 15:16:54 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:16:54 INFO  [main]: User deleted successfully with id: 1
+2024-12-05 15:16:54 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:16:54 WARN  [main]: User not found with id: 1
+2024-12-05 15:16:54 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:16:54 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:16:54 INFO  [main]: Setting password hash.
+2024-12-05 15:16:54 INFO  [main]: Updating user with id: 1
+2024-12-05 15:16:54 INFO  [main]: Setting name: null
+2024-12-05 15:16:54 INFO  [main]: Setting surname: null
+2024-12-05 15:16:54 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:16:54 INFO  [main]: Setting password hash.
+2024-12-05 15:16:54 INFO  [main]: User updated successfully with id: 1
+2024-12-05 15:16:54 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:16:54 INFO  [main]: Setting password hash.
+2024-12-05 15:16:54 INFO  [main]: Registering new user with email: test@example.com
+2024-12-05 15:16:54 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:16:54 INFO  [main]: Fetching user with id: 1
+2024-12-05 15:16:54 INFO  [main]: User found with id: 1
+2024-12-05 15:16:54 INFO  [main]: Registering new user with email: test@example.com
+2024-12-05 15:16:54 WARN  [main]: User with email test@example.com already exists.
+2024-12-05 15:16:54 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:16:54 INFO  [main]: Updating user with id: 1
+2024-12-05 15:16:54 WARN  [main]: User not found with id: 1
+2024-12-05 15:23:53 INFO  [main]: Portfolio object created with default constructor.
+2024-12-05 15:23:58 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:23:58 INFO  [main]: User deleted successfully with id: 1
+2024-12-05 15:23:58 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:23:58 WARN  [main]: User not found with id: 1
+2024-12-05 15:23:58 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:23:58 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:23:58 INFO  [main]: Setting password hash.
+2024-12-05 15:23:58 INFO  [main]: Updating user with id: 1
+2024-12-05 15:23:58 INFO  [main]: Setting name: null
+2024-12-05 15:23:58 INFO  [main]: Setting surname: null
+2024-12-05 15:23:58 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:23:58 INFO  [main]: Setting password hash.
+2024-12-05 15:23:58 INFO  [main]: User updated successfully with id: 1
+2024-12-05 15:23:58 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:23:58 INFO  [main]: Fetching user with id: 1
+2024-12-05 15:23:58 INFO  [main]: User found with id: 1
+2024-12-05 15:23:58 INFO  [main]: Registering new user with email: test@example.com
+2024-12-05 15:23:58 WARN  [main]: User with email test@example.com already exists.
+2024-12-05 15:23:58 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:23:58 INFO  [main]: Updating user with id: 1
+2024-12-05 15:23:58 WARN  [main]: User not found with id: 1
+2024-12-05 15:26:46 INFO  [main]: Portfolio object created with default constructor.
+2024-12-05 15:26:50 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:26:50 INFO  [main]: User deleted successfully with id: 1
+2024-12-05 15:26:50 INFO  [main]: Deleting user with id: 1
+2024-12-05 15:26:50 WARN  [main]: User not found with id: 1
+2024-12-05 15:26:50 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:26:50 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:26:50 INFO  [main]: Setting password hash.
+2024-12-05 15:26:50 INFO  [main]: Updating user with id: 1
+2024-12-05 15:26:50 INFO  [main]: Setting name: null
+2024-12-05 15:26:50 INFO  [main]: Setting surname: null
+2024-12-05 15:26:50 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:26:50 INFO  [main]: Setting password hash.
+2024-12-05 15:26:50 INFO  [main]: User updated successfully with id: 1
+2024-12-05 15:26:50 INFO  [main]: Setting email: test@example.com
+2024-12-05 15:26:50 INFO  [main]: Fetching user with id: 1
+2024-12-05 15:26:50 INFO  [main]: User found with id: 1
+2024-12-05 15:26:50 INFO  [main]: Registering new user with email: test@example.com
+2024-12-05 15:26:50 WARN  [main]: User with email test@example.com already exists.
+2024-12-05 15:26:50 INFO  [main]: Setting email: updated@example.com
+2024-12-05 15:26:50 INFO  [main]: Updating user with id: 1
+2024-12-05 15:26:50 WARN  [main]: User not found with id: 1
+2024-12-08 15:00:05 INFO  [main]: Portfolio object created with default constructor.
+2024-12-08 15:00:10 INFO  [main]: Deleting user with id: 1
+2024-12-08 15:00:10 INFO  [main]: User deleted successfully with id: 1
+2024-12-08 15:00:10 INFO  [main]: Deleting user with id: 1
+2024-12-08 15:00:10 WARN  [main]: User not found with id: 1
+2024-12-08 15:00:10 INFO  [main]: Setting email: test@example.com
+2024-12-08 15:00:10 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:00:10 INFO  [main]: Setting password hash.
+2024-12-08 15:00:10 INFO  [main]: Updating user with id: 1
+2024-12-08 15:00:10 INFO  [main]: Setting name: null
+2024-12-08 15:00:10 INFO  [main]: Setting surname: null
+2024-12-08 15:00:10 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:00:10 INFO  [main]: Setting password hash.
+2024-12-08 15:00:10 INFO  [main]: User updated successfully with id: 1
+2024-12-08 15:00:10 INFO  [main]: Setting email: test@example.com
+2024-12-08 15:00:10 INFO  [main]: Fetching user with id: 1
+2024-12-08 15:00:10 INFO  [main]: User found with id: 1
+2024-12-08 15:00:10 INFO  [main]: Registering new user with email: test@example.com
+2024-12-08 15:00:10 WARN  [main]: User with email test@example.com already exists.
+2024-12-08 15:00:10 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:00:10 INFO  [main]: Updating user with id: 1
+2024-12-08 15:00:10 WARN  [main]: User not found with id: 1
+2024-12-08 15:03:55 INFO  [main]: Portfolio object created with default constructor.
+2024-12-08 15:03:59 INFO  [main]: Deleting user with id: 1
+2024-12-08 15:03:59 INFO  [main]: User deleted successfully with id: 1
+2024-12-08 15:03:59 INFO  [main]: Deleting user with id: 1
+2024-12-08 15:03:59 WARN  [main]: User not found with id: 1
+2024-12-08 15:03:59 INFO  [main]: Setting email: test@example.com
+2024-12-08 15:03:59 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:03:59 INFO  [main]: Setting password hash.
+2024-12-08 15:03:59 INFO  [main]: Updating user with id: 1
+2024-12-08 15:03:59 INFO  [main]: Setting name: null
+2024-12-08 15:03:59 INFO  [main]: Setting surname: null
+2024-12-08 15:03:59 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:03:59 INFO  [main]: Setting password hash.
+2024-12-08 15:03:59 INFO  [main]: User updated successfully with id: 1
+2024-12-08 15:03:59 INFO  [main]: Setting email: test@example.com
+2024-12-08 15:03:59 INFO  [main]: Fetching user with id: 1
+2024-12-08 15:03:59 INFO  [main]: User found with id: 1
+2024-12-08 15:03:59 INFO  [main]: Registering new user with email: test@example.com
+2024-12-08 15:03:59 WARN  [main]: User with email test@example.com already exists.
+2024-12-08 15:03:59 INFO  [main]: Setting email: updated@example.com
+2024-12-08 15:03:59 INFO  [main]: Updating user with id: 1
+2024-12-08 15:03:59 WARN  [main]: User not found with id: 1

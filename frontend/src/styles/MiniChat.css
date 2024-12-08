@@ -1,0 +1,74 @@
+.mini-chat {
+  position: fixed;
+  bottom: 80px; /* Чуть выше иконки чата */
+  right: 20px;
+  width: 300px;
+  max-height: 418px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-boxMini{
+  display: flex;
+  flex-direction: column; /* Располагаем сообщения по вертикали */
+  padding-bottom: 10px;
+  background-color: #ffffff; /* Цвет фона чата */
+  border-radius: 10px;
+  height: 320px; /* Максимальная высота для чата */
+  overflow-y: auto; /* Прокрутка по вертикали */
+  width: 260px;
+}
+
+.mini-chat-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #81c784;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mini-chat-content {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.messageM {
+  margin: 5px 0; /* Отступы сверху и снизу */
+  padding: 10px 15px; /* Отступы внутри сообщения */
+  border-radius: 20px; /* Закругление углов сообщений */
+  max-width: 80%; /* Максимальная ширина сообщений */
+  word-wrap: break-word; /* Перенос слов на новую строку при необходимости */
+}
+
+.btnInput input{
+  width: calc(100% - 80px); /* Ширина поля ввода */
+  padding: 10px; /* Отступы внутри поля */
+  border: 1px solid #ccc; /* Рамка вокруг поля ввода */
+  border-radius: 5px; /* Закругление углов поля ввода */
+  margin-right: 10px; /* Отступ справа от поля ввода */
+  outline: none;
+}
+
+.btnInput button{
+  padding: 10px 15px; /* Отступы внутри кнопки */
+  background-color: #4CAF4F; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  border: none; /* Убираем рамку у кнопки */
+  border-radius: 5px; /* Закругление углов кнопки */
+  cursor: pointer; /* Указатель курсора при наведении */
+  transition: background-color 0.3s; /* Плавный переход для изменения цвета */
+}

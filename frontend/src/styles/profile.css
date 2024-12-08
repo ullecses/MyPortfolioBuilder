@@ -1,0 +1,142 @@
+.profileData{
+  width: 100%;
+  margin-top: 40px;
+  background-color: #F5F7FA;
+  height: 635px;
+  display: flex;
+  font-family: "Inter", sans-serif;
+}
+
+.basePofInfo{
+  width: 340px;
+  height: 570px;
+  background-color: white;
+  margin-left: 120px;
+  display: flex;
+  flex-direction: column; /* Выстраиваем элементы по вертикали */
+  align-items: center; /* Центрируем по горизонтали */
+  text-align: center; /* Центрируем текст внутри блока */
+}
+
+.profPhoto{
+  width: 216px;
+  height: 216px;
+  border-radius: 150px;
+  background-color: #d2d2d7;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.profName{
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.profJob{
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.pageInProf{
+  width: 869px;
+  height: 520px;
+  background-color: white;
+  margin-left: 80px;
+  display: flex;
+  flex-direction: column; /* Выстраиваем элементы по вертикали */
+  align-items: center; /* Центрируем по горизонтали */
+  text-align: center; /* Центрируем текст внутри блока */
+}
+
+.navegPage {
+  display: flex; /* Установите flexbox для основного контейнера */
+  flex-direction: column; /* Расположите элементы в столбик */
+}
+.profile_nav {
+  display: flex; /* Используйте flexbox для расположения элементов в строку */
+  justify-content: space-around; /* Разделите кнопки по горизонтали с равными промежутками */
+  height: 50px;
+  background-color: #F5F7FA;
+  margin-left: 80px;
+}
+
+.profile_nav button {
+  font-size: 20px;
+  padding: 10px 15px; /* Добавьте отступы внутри кнопок */
+  background-color: transparent;
+  border: none; /* Уберите рамку кнопок */
+  border-radius: 5px; /* Закруглите углы кнопок */
+  cursor: pointer; /* Измените указатель на курсор при наведении */
+  transition: background-color 0.3s; /* Плавный переход для изменения цвета */
+}
+
+
+/* Стили для контейнера чата */
+.chat-box {
+  display: flex;
+  flex-direction: column; /* Располагаем сообщения по вертикали */
+  padding: 20px;
+  background-color: #ffffff; /* Цвет фона чата */
+  border-radius: 10px;
+  height: 480px; /* Максимальная высота для чата */
+  overflow-y: auto; /* Прокрутка по вертикали */
+  width: 865px;
+}
+
+/* Стили для сообщения */
+.message {
+  margin: 5px 0; /* Отступы сверху и снизу */
+  padding: 10px 15px; /* Отступы внутри сообщения */
+  border-radius: 20px; /* Закругление углов сообщений */
+  max-width: 80%; /* Максимальная ширина сообщений */
+  word-wrap: break-word; /* Перенос слов на новую строку при необходимости */
+}
+
+/* Стили для отправленного сообщения */
+.sent {
+  align-self: flex-end; /* Выравнивание по правому краю */
+  background-color: #bff3bf; /* Цвет фона для отправленных сообщений */
+  color: #000; /* Цвет текста для отправленных сообщений */
+}
+
+/* Стили для полученного сообщения */
+.received {
+  align-self: flex-start; /* Выравнивание по левому краю */
+  background-color: #FFFFFF; /* Цвет фона для полученных сообщений */
+  color: #000; /* Цвет текста для полученных сообщений */
+}
+
+/* Стили для поля ввода и кнопки отправки */
+.renderMessages input {
+  width: calc(100% - 80px); /* Ширина поля ввода */
+  padding: 10px; /* Отступы внутри поля */
+  border: 1px solid #ccc; /* Рамка вокруг поля ввода */
+  border-radius: 5px; /* Закругление углов поля ввода */
+  margin-right: 10px; /* Отступ справа от поля ввода */
+  outline: none;
+}
+
+.renderMessages input:focus {
+  outline: none; /* Убираем контур при фокусировке */
+  box-shadow: none; /* Убираем тень при фокусировке */
+}
+
+.renderMessages button {
+  padding: 10px 15px; /* Отступы внутри кнопки */
+  background-color: #4CAF4F; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  border: none; /* Убираем рамку у кнопки */
+  border-radius: 5px; /* Закругление углов кнопки */
+  cursor: pointer; /* Указатель курсора при наведении */
+  transition: background-color 0.3s; /* Плавный переход для изменения цвета */
+}
+
+.renderMessages button:hover {
+  background-color: #acedac; /* Цвет кнопки при наведении */
+}
+
+.btnInput{
+  display: flex;
+}
+
+.renderMessages{background-color: #F5F7FA;}

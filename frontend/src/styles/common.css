@@ -1,0 +1,26 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	border: none;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+a {
+  text-decoration: none; 
+}
+
+
+* {
+  box-sizing: border-box; /* Учитываем паддинги и границы при расчете размеров элементов */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+}

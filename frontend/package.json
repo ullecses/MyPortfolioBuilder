@@ -1,0 +1,63 @@
+{
+  "name": "form2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "http-proxy-middleware": "^3.0.3",
+    "i18next": "^23.16.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.1.0",
+    "react-icons": "^5.3.0",
+    "react-router-dom": "^6.26.2",
+    "react-scripts": "5.0.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "web-vitals": "^2.1.4",
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/cors": "^2.8.17",
+    "jest": "^27.5.1",
+    "jest-localstorage-mock": "^2.4.26",
+    "sass": "^1.79.4"
+  },
+  "description": "Проект представляет собой веб-сервис, позволяющий пользователям создавать и публиковать онлайн-портфолио профессиональных навыков, проектов и достижений компании. Целью системы является создание удобного и доступного инструмента, позволяющего пользователям быстро создавать персонализированное портфолио с использованием отличных технических методов. Система также поддерживает мультимедиа, обеспечивает мобильную адаптацию и позволяет пользователям анализировать трафик своего портфолио.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -17,11 +17,10 @@ RUN mvn clean package
 # Используем минимальный образ с Java для запуска
 FROM openjdk:17-jdk-alpine
 
-
 # Копируем собранный .jar файл из предыдущего этапа
-COPY --from=build /app/target/MyPortfolioBuilder-0.0.1-SNAPSHOT.jar /app/MyPortfolioBuilder.jar
+COPY --from=build /app/target/myportfoliobuilder-0.0.1-SNAPSHOT.jar /app/myportfoliobuilder.jar
 
 EXPOSE 8080
 
 # Указываем команду для запуска .jar файла
-CMD ["java", "-jar", "/app/MyPortfolioBuilder.jar"]
+CMD ["java", "-jar", "/app/myportfoliobuilder.jar"]

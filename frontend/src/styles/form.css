@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+.register, .login{
+  overflow-y: scroll; 
+}
+.formm {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins';
+    color: black;
+    display: flex;
+    height: 100vh; 
+   }
+
+
+.image-container {
+        height: 100vh;
+        flex: 1; /* Занимает все доступное пространство */
+        background-image: url('../img/form.svg'); 
+        background-size: cover; 
+        background-position: center; 
+
+    }
+
+  .container2 {
+        width: 700px;
+        height: 100vh;
+        background-color: rgb(255, 255, 255);
+        margin: 0 0 0 auto;
+        transition: max-height 1s ease, padding 0.5s ease; /* Плавный переход для высоты и отступов */
+    }
+
+.exit-icon{
+  color: #4CAF4F;
+  margin-left: 650px;
+  margin-top: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+h1{
+  font-weight: 700;
+    color: black;
+    margin-bottom: 50px;
+    margin-top: 60px;
+    font-size: 46px;
+}
+
+.form-section {
+    display: flex;
+    justify-content: center;
+}
+
+.reglogform {
+    margin: 0 0 0 auto;
+    width: 700px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.input-box {
+    margin-bottom: 15px; 
+}
+
+.input-box label {
+    display: block;
+    font-weight: 200; 
+    color: black; 
+    font-size: 15px;
+}
+
+.input-box input {
+  height: 45px;
+    width: 350px; 
+    border: 1px solid #ccc;
+}
+
+.input-box p{
+  margin-top: 10px;
+}
+
+.form-style {
+    padding: 13px 20px;
+    height: 20px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #838383;
+    background-color: #EFF0F2;
+    border: none;
+    transition: all 200ms linear;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+    align-items: center;
+}
+
+.form-style:focus,
+.form-style:active {
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+
+.btn-form {
+    width: 250px; 
+    height: 50px;
+    padding: 10px;
+    background-color: #4CAF4F;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 80px;
+    font-size: 20px;
+}
+
+.slka{
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  margin: 0 0 0 auto;
+  font-size: 15px;
+  color: #4CAF4F;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 1px;
+    font-size: 15px;
+}
+
+.input-box {
+  margin-bottom: 15px;     
+  overflow: hidden; /* Скрываем переполнение */
+  transition: height 1s ease, opacity 1s ease; /* Плавный переход для высоты и opacity */
+}
+
+.fade {
+  opacity: 0;
+  height: 0; 
+  transition: opacity 1s ease, height 1s ease; 
+}
+
+.error-message {
+  color: red; 
+  font-size: 16px; 
+  margin-top: 0px;
+}
+
+@media (max-width: 768px) {
+  .container2 {
+      margin: 0 5px 0 5px;
+      width: 100%;
+  }
+  
+  .reglogform {
+      width: 100%;
+  }
+  
+  .exit-icon {
+      margin-left: auto;
+      margin-right: 10px;
+  }
+
+  h1 {
+      font-size: 36px; 
+      text-align: center; 
+  }
+
+  .input-box input {
+      width: 350px;
+  }
+
+  .btn-form {
+      width: 250px; 
+  }
+
+  .register-link {
+      font-size: 14px;
+  }
+}
+
