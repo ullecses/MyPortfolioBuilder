@@ -43,7 +43,6 @@ public class UserController {
         return userService.findAll();
     }
 
-    // Обработка POST-запроса для регистрации нового пользователя
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRequestDTO userDetails) {
         User newUser = userService.registerUser(userDetails.getEmail(), userDetails.getPassword());
