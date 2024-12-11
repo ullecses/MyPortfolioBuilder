@@ -1,7 +1,17 @@
 package com.example.myportfoliobuilder.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "works")
 public class Work {
@@ -10,44 +20,25 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String position; // Должность
 
-    private String title;
-    private String description;
+    @Column(nullable = false)
+    private String company; // Компания
 
-    @ManyToOne
-    @JoinColumn(name = "portfolio_id", nullable = false)
-    private Portfolio portfolio;
+    @Column
+    private String city; // Город
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate; // Дата начала
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "end_date")
+    private LocalDate endDate; // Дата окончания
 
-    public String getTitle() {
-        return title;
-    }
+    @Column(name = "jobs_info", columnDefinition = "TEXT")
+    private String jobsInfo; // Информация о работе
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user; // Связь с пользователем
 }

@@ -46,15 +46,6 @@ public class DatabaseConnection {
             LOGGER.info("Connected to PostgreSQL database!");
         } catch (SQLException e) {
             LOGGER.error("Connection to PostgreSQL failed: " + e.getMessage(), e);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                    LOGGER.info("Database connection closed.");
-                } catch (SQLException e) {
-                    LOGGER.warn("Failed to close the database connection: " + e.getMessage(), e);
-                }
-            }
         }
     }
 }
