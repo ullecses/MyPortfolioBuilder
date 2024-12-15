@@ -16,7 +16,7 @@ public class PortfolioFormDTO {
     private String userEmail;
     private String firstName;
     private String lastName;
-    private LocalDate dob;
+    private String desiredPosition;
     private String country;
     private String citizenship;
     private String phone;
@@ -28,7 +28,7 @@ public class PortfolioFormDTO {
 
     private List<WorkDTO> works; // Список работ
     private List<EducationDTO> educations; // Список образований
-    //private List<String> languages; // Список языков
+    private List<LanguageDTO> languages; // Список языков
 }
 
 

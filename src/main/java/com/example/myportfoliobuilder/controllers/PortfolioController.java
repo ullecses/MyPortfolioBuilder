@@ -1,17 +1,11 @@
 package com.example.myportfoliobuilder.controllers;
 
-import com.example.myportfoliobuilder.dto.*;
-import com.example.myportfoliobuilder.models.Education;
-import com.example.myportfoliobuilder.models.Portfolio;
-import com.example.myportfoliobuilder.models.User;
-import com.example.myportfoliobuilder.models.Work;
-import com.example.myportfoliobuilder.repositories.EducationRepository;
-import com.example.myportfoliobuilder.repositories.UserRepository;
-import com.example.myportfoliobuilder.repositories.WorkRepository;
-import com.example.myportfoliobuilder.services.EducationService;
-import com.example.myportfoliobuilder.services.PortfolioService;
-import com.example.myportfoliobuilder.services.UserService;
-import com.example.myportfoliobuilder.services.WorkService;
+import com.example.myportfoliobuilder.dto.EducationDTO;
+import com.example.myportfoliobuilder.dto.LanguageDTO;
+import com.example.myportfoliobuilder.dto.PortfolioFormDTO;
+import com.example.myportfoliobuilder.dto.WorkDTO;
+import com.example.myportfoliobuilder.models.*;
+import com.example.myportfoliobuilder.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,12 +37,15 @@ public class PortfolioController {
     @Autowired
     private EducationService educationService;
 
+    @Autowired
+    private LanguageService languageService;
+
     @PostMapping
     public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
         User user = userService.findByEmail(formDTO.getUserEmail()).get();
         user.setName(formDTO.getFirstName());
         user.setSurname(formDTO.getLastName());
-        user.setBirthDate(formDTO.getDob());
+        user.setDesiredPosition(formDTO.getDesiredPosition());
         user.setCountry(formDTO.getCountry());
         user.setCitizenship(formDTO.getCitizenship());
         user.setPhoneNumber(formDTO.getPhone());
@@ -82,7 +79,6 @@ public class PortfolioController {
             }
         }
 
-        // Обрабатываем и сохраняем работы
         if (formDTO.getEducations() != null) {
             for (EducationDTO educationDTO : formDTO.getEducations()) {
                 Education education = new Education();
@@ -98,10 +94,21 @@ public class PortfolioController {
             }
         }
 
+        if (formDTO.getLanguages() != null) {
+            for (LanguageDTO languageDTO : formDTO.getLanguages()) {
+                Language language = new Language();
+                language.setLanguage(languageDTO.getLanguage());
+                language.setLevel(languageDTO.getLevel());
+                language.setUser(user);
+
+                languageService.saveLanguage(language);
+            }
+        }
+
         return ResponseEntity.ok("Portfolio created successfully");
     }
 
-    @GetMapping("/create")
+    @GetMapping
     public ResponseEntity<Map<String, Object>> generateUserPortfolio(@RequestParam String email) {
         Optional<User> userOptional = userService.findByEmail(email);
 
@@ -113,6 +120,7 @@ public class PortfolioController {
         User user = userOptional.get();
         List<Work> works = workService.getWorksByUserId(user.getId());
         List<Education> educations = educationService.getEducationsByUserId(user.getId());
+        List<Language> languages = languageService.getLanguagesByUserId(user.getId());
 
         Random random = new Random();
         Map<String, Object> response = new HashMap<>();
@@ -128,6 +136,7 @@ public class PortfolioController {
         response.put("workMode", user.getWorkMode());
         response.put("works", works);
         response.put("educations", educations);
+        response.put("languages", languages);
 
         return ResponseEntity.ok(response);
     }
@@ -143,15 +152,6 @@ public class PortfolioController {
             "Проактивный и ориентированный на результат специалист с сильными аналитическими навыками. Легко справляюсь со сложными задачами и всегда ищу новые пути для улучшения. Стремлюсь к постоянному совершенствованию своих навыков."
     );
 
-    // Получить список всех портфолио
-    @GetMapping
-    public ResponseEntity<List<Portfolio>> getAllPortfolios() {
-        LOGGER.info("Received request to get all portfolios " + IN_CONTROLLER);
-        List<Portfolio> portfolios = portfolioService.getAllPortfolios();
-        LOGGER.info("Returning " + portfolios.size() + " portfolios" + IN_CONTROLLER);
-        return ResponseEntity.ok(portfolios);
-    }
-
     // Получить портфолио по id
     @GetMapping("/{id}")
     public ResponseEntity<Portfolio> getPortfolioById(@PathVariable Long id) {
@@ -160,15 +160,6 @@ public class PortfolioController {
         LOGGER.info("Returning portfolio with id: " + id + IN_CONTROLLER);
         return ResponseEntity.ok(portfolio);
     }
-
-    // Создать новое портфолио
-    /*@PostMapping
-    public ResponseEntity<Portfolio> createPortfolio(@RequestBody PortfolioRequestDTO portfolioRequest) {
-        LOGGER.info("Received request to create a new portfolio for user id: " + portfolioRequest.getUserId() + IN_CONTROLLER);
-        Portfolio savedPortfolio = portfolioService.createPortfolio(portfolioRequest);
-        LOGGER.info("Portfolio created with id: " + savedPortfolio.getId() + IN_CONTROLLER);
-        return ResponseEntity.ok(savedPortfolio);
-    }*/
 
     // Обновить портфолио
     @PutMapping("/{id}")

@@ -51,8 +51,8 @@ public class User {
     @Column(name = "work_mode")
     private Enums.WorkMode workMode;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    @Column(name = "desiredPosition")
+    private String desiredPosition;
 
     @Column(name = "citizenship")
     private String citizenship;
@@ -71,7 +71,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Work> works;
 
-    // Связь с работами
+    // Связь с образованиями
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Education> educations;
+
+    // Связь с языками
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Language> languages;
 }

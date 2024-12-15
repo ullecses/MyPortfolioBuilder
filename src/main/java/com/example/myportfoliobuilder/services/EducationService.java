@@ -1,7 +1,6 @@
 package com.example.myportfoliobuilder.services;
 
 import com.example.myportfoliobuilder.models.Education;
-import com.example.myportfoliobuilder.models.Work;
 import com.example.myportfoliobuilder.repositories.EducationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

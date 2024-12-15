@@ -1,22 +1,22 @@
 package com.example.myportfoliobuilder.services;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.myportfoliobuilder.models.Language;
+import com.example.myportfoliobuilder.repositories.LanguageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LanguageService {
+    @Autowired
+    private LanguageRepository languageRepository;
 
-    public String getUserLanguage(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("lang".equals(cookie.getName())) {
-                    return cookie.getValue();  // Возвращаем значение языка из куки
-                }
-            }
-        }
-        return "en";
+    public Language saveLanguage(Language language) {
+        return languageRepository.save(language);
+    }
+
+    public List<Language> getLanguagesByUserId(Long userId) {
+        return languageRepository.findAllByUserId(userId);
     }
 }
-
