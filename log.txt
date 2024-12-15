@@ -73,3 +73,5 @@
 2024-12-15 00:27:37 INFO  [restartedMain]: Connected to PostgreSQL database!
 2024-12-15 20:48:43 INFO  [restartedMain]: Portfolio object created with default constructor.
 2024-12-15 20:48:46 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 21:15:37 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 21:15:40 INFO  [restartedMain]: Connected to PostgreSQL database!

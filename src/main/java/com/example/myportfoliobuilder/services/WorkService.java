@@ -16,7 +16,7 @@ public class WorkService {
         return workRepository.save(work);
     }
 
-    public List<Work> getWorksByUserEmail(String email) {
-        return workRepository.findByEmail(email);
+    public List<Work> getWorksByUserId(Long userId) {
+        return workRepository.findAllByUserId(userId);
     }
 }

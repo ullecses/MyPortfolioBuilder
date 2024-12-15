@@ -8,6 +8,7 @@ import com.example.myportfoliobuilder.models.Work;
 import com.example.myportfoliobuilder.repositories.EducationRepository;
 import com.example.myportfoliobuilder.repositories.UserRepository;
 import com.example.myportfoliobuilder.repositories.WorkRepository;
+import com.example.myportfoliobuilder.services.EducationService;
 import com.example.myportfoliobuilder.services.PortfolioService;
 import com.example.myportfoliobuilder.services.UserService;
 import com.example.myportfoliobuilder.services.WorkService;
@@ -40,13 +41,7 @@ public class PortfolioController {
     private WorkService workService;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private WorkRepository workRepository;
-
-    @Autowired
-    private EducationRepository educationRepository;
+    private EducationService educationService;
 
     @PostMapping
     public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
@@ -62,7 +57,7 @@ public class PortfolioController {
         user.setBusinessTrips(formDTO.getBusinessTrips());
         user.setEmploymentType(formDTO.getEmployment());
         user.setWorkMode(formDTO.getWorkMode());
-        userRepository.save(user);
+        userService.saveUser(user);
         // Сохраняем фотографию
         /*if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
             MultipartFile photoFile = formDTO.getPhoto();
@@ -83,7 +78,7 @@ public class PortfolioController {
                 work.setJobsInfo(workDTO.getJobsInfo());
                 work.setUser(user);
 
-                workRepository.save(work);
+                workService.saveWork(work);
             }
         }
 
@@ -99,7 +94,7 @@ public class PortfolioController {
                 education.setEducationInfo(educationDTO.getEducationInfo());
                 education.setUser(user);
 
-                educationRepository.save(education);
+                educationService.saveEducation(education);
             }
         }
 
@@ -116,8 +111,8 @@ public class PortfolioController {
         }
 
         User user = userOptional.get();
-        List<Work> works = workRepository.findAllByUserId(user.getId());
-        List<Education> educations = educationRepository.findAllByUserId(user.getId());
+        List<Work> works = workService.getWorksByUserId(user.getId());
+        List<Education> educations = educationService.getEducationsByUserId(user.getId());
 
         Random random = new Random();
         Map<String, Object> response = new HashMap<>();
