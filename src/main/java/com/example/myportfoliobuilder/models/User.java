@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,8 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
-    private static final Logger LOGGER = Logger.getLogger(User.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,12 +48,8 @@ public class User {
     private Enums.EmploymentType employmentType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "work_character")
-    private Enums.WorkCharacter workCharacter;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "work_schedule")
-    private Enums.WorkSchedule workSchedule;
+    @Column(name = "work_mode")
+    private Enums.WorkMode workMode;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
@@ -73,4 +66,12 @@ public class User {
     // Связь с портфолио
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Portfolio> portfolios;
+
+    // Связь с работами
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Work> works;
+
+    // Связь с работами
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Education> educations;
 }

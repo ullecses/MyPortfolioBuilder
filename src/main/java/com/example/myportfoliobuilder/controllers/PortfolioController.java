@@ -1,16 +1,23 @@
 package com.example.myportfoliobuilder.controllers;
 
-import com.example.myportfoliobuilder.dto.PortfolioRequestDTO;
+import com.example.myportfoliobuilder.dto.*;
+import com.example.myportfoliobuilder.models.Education;
 import com.example.myportfoliobuilder.models.Portfolio;
 import com.example.myportfoliobuilder.models.User;
+import com.example.myportfoliobuilder.models.Work;
+import com.example.myportfoliobuilder.repositories.EducationRepository;
+import com.example.myportfoliobuilder.repositories.UserRepository;
+import com.example.myportfoliobuilder.repositories.WorkRepository;
 import com.example.myportfoliobuilder.services.PortfolioService;
 import com.example.myportfoliobuilder.services.UserService;
+import com.example.myportfoliobuilder.services.WorkService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,13 +32,84 @@ public class PortfolioController {
 
     private static final Logger LOGGER = Logger.getLogger(PortfolioController.class);
     private static final String IN_CONTROLLER = " in PortfolioController";
-    private final PortfolioService portfolioService;
-    private final UserService userService;
 
     @Autowired
-    public PortfolioController(PortfolioService portfolioService, UserService userService) {
-        this.portfolioService = portfolioService;
-        this.userService = userService;
+    private PortfolioService portfolioService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private WorkService workService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private WorkRepository workRepository;
+
+    @Autowired
+    private EducationRepository educationRepository;
+
+    @PostMapping
+    public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
+        Optional<User> optionalUser = userRepository.findByEmail(formDTO.getUserEmail());
+        if (!optionalUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not present " + formDTO.getUserEmail() + formDTO.getFirstName());
+        }
+        User user = optionalUser.get();
+        user.setName(formDTO.getFirstName());
+        user.setSurname(formDTO.getLastName());
+        user.setBirthDate(formDTO.getDob());
+        user.setCountry(formDTO.getCountry());
+        user.setPhoneNumber(formDTO.getPhone());
+        user.setEmail(formDTO.getUserEmail());
+        user.setGender(formDTO.getGender());
+        user.setBusinessTrips(formDTO.getBusinessTrips());
+        user.setEmploymentType(formDTO.getEmployment());
+        user.setWorkMode(formDTO.getWorkMode());
+        userRepository.save(user);
+        // Сохраняем фотографию
+        /*if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
+            MultipartFile photoFile = formDTO.getPhoto();
+            Photo photo = new Photo();
+            photo.setData(photoFile.getBytes());
+            photo.setUser(user);
+            user.setPhoto(photo);
+        }*/
+
+        if (formDTO.getWorks() != null) {
+            for (WorkDTO workDTO : formDTO.getWorks()) {
+                Work work = new Work();
+                work.setPosition(workDTO.getPosition());
+                work.setCompany(workDTO.getCompany());
+                work.setCity(workDTO.getCity());
+                work.setStartDate(workDTO.getStartDate());
+                work.setEndDate(workDTO.getEndDate());
+                work.setJobsInfo(workDTO.getJobsInfo());
+                work.setUser(user);
+
+                workRepository.save(work);
+            }
+        }
+
+        // Обрабатываем и сохраняем работы
+        if (formDTO.getEducations() != null) {
+            for (EducationDTO educationDTO : formDTO.getEducations()) {
+                Education education = new Education();
+                education.setSpecialization(educationDTO.getSpecialization());
+                education.setInstitution(educationDTO.getInstitution());
+                education.setCity(educationDTO.getCity());
+                education.setStartDate(educationDTO.getStartDate());
+                education.setEndDate(educationDTO.getEndDate());
+                education.setEducationInfo(educationDTO.getEducationInfo());
+                education.setUser(user);
+
+                educationRepository.save(education);
+            }
+        }
+
+        return ResponseEntity.ok("Portfolio created successfully");
     }
 
     @GetMapping("/create")
@@ -50,14 +128,13 @@ public class PortfolioController {
                 "name", user.getName(),
                 "surname", user.getSurname(),
                 "email", user.getEmail(),
+                "phoneNumber", user.getPhoneNumber(),
                 "businessTrips", user.getBusinessTrips(),
                 "employmentType", user.getEmploymentType(),
-                "workCharacter", user.getWorkCharacter(),
-                "workSchedule", user.getWorkSchedule(),
+                "workSchedule", user.getWorkMode(),
                 "citizenship", user.getCitizenship(),
                 "country", user.getCountry()
         );
-        portfolioData.put("phoneNumber", user.getPhoneNumber());
 
         return ResponseEntity.ok(portfolioData);
     }
@@ -92,13 +169,13 @@ public class PortfolioController {
     }
 
     // Создать новое портфолио
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Portfolio> createPortfolio(@RequestBody PortfolioRequestDTO portfolioRequest) {
         LOGGER.info("Received request to create a new portfolio for user id: " + portfolioRequest.getUserId() + IN_CONTROLLER);
         Portfolio savedPortfolio = portfolioService.createPortfolio(portfolioRequest);
         LOGGER.info("Portfolio created with id: " + savedPortfolio.getId() + IN_CONTROLLER);
         return ResponseEntity.ok(savedPortfolio);
-    }
+    }*/
 
     // Обновить портфолио
     @PutMapping("/{id}")

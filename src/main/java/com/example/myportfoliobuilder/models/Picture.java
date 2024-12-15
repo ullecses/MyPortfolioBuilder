@@ -10,9 +10,9 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "portfolio_id", nullable = false)
-    private Portfolio portfolio;
+    private Portfolio portfolio;*/
 
     public Long getId() {
         return id;
@@ -28,14 +28,6 @@ public class Picture {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
     }
 
     private String url;

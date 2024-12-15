@@ -31,11 +31,8 @@ public class Portfolio {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Picture> pictures;
-
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Work> works;
+    /*@OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Picture> pictures;*/
 
     // Конструкторы
     public Portfolio() {
@@ -105,23 +102,14 @@ public class Portfolio {
         this.user = user;
     }
 
-    public List<Work> getWorks() {
-        return works;
-    }
-
-    public void setWorks(List<Work> works) {
-        LOGGER.info("Updating list of works for portfolio with ID: " + this.id);
-        this.works = works;
-    }
-
-    public List<Picture> getPictures() {
+    /*public List<Picture> getPictures() {
         return pictures;
     }
 
     public void setPictures(List<Picture> pictures) {
         LOGGER.info("Updating list of pictures for portfolio with ID: " + this.id);
         this.pictures = pictures;
-    }
+    }*/
 
     // Метод для обновления времени
     @PreUpdate

@@ -30,3 +30,44 @@
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting creation date: 2024-11-30
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
+2024-12-11 23:40:37 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-11 23:40:40 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-11 23:43:47 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-11 23:43:50 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 22:38:44 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 22:40:33 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 22:40:35 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 22:58:35 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 22:58:37 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:10:35 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:10:37 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:12:29 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:12:32 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:14:31 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:14:33 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:17:22 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:17:24 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:19:50 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:19:54 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:21:55 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:21:58 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:28:33 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:28:36 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:29:55 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:29:58 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:32:29 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:32:32 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:33:21 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:33:23 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-14 23:34:18 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-14 23:34:20 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 00:11:23 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 00:11:26 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 00:17:10 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 00:17:13 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 00:22:17 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 00:22:19 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 00:25:53 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 00:25:56 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-15 00:27:34 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-15 00:27:37 INFO  [restartedMain]: Connected to PostgreSQL database!
