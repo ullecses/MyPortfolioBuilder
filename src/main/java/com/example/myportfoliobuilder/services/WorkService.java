@@ -5,6 +5,8 @@ import com.example.myportfoliobuilder.repositories.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkService {
     @Autowired
@@ -12,5 +14,9 @@ public class WorkService {
 
     public Work saveWork(Work work) {
         return workRepository.save(work);
+    }
+
+    public List<Work> getWorksByUserEmail(String email) {
+        return workRepository.findByEmail(email);
     }
 }

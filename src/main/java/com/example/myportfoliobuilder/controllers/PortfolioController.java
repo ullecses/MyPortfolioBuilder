@@ -18,10 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import static com.example.myportfoliobuilder.config.WebConfig.IPFRONT;
 
@@ -53,15 +50,12 @@ public class PortfolioController {
 
     @PostMapping
     public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
-        Optional<User> optionalUser = userRepository.findByEmail(formDTO.getUserEmail());
-        if (!optionalUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not present " + formDTO.getUserEmail() + formDTO.getFirstName());
-        }
-        User user = optionalUser.get();
+        User user = userService.findByEmail(formDTO.getUserEmail()).get();
         user.setName(formDTO.getFirstName());
         user.setSurname(formDTO.getLastName());
         user.setBirthDate(formDTO.getDob());
         user.setCountry(formDTO.getCountry());
+        user.setCitizenship(formDTO.getCitizenship());
         user.setPhoneNumber(formDTO.getPhone());
         user.setEmail(formDTO.getUserEmail());
         user.setGender(formDTO.getGender());
@@ -122,21 +116,25 @@ public class PortfolioController {
         }
 
         User user = userOptional.get();
-        Random random = new Random();
-        Map<String, Object> portfolioData = Map.of(
-                "header", HEADERS.get(random.nextInt(HEADERS.size())),
-                "name", user.getName(),
-                "surname", user.getSurname(),
-                "email", user.getEmail(),
-                "phoneNumber", user.getPhoneNumber(),
-                "businessTrips", user.getBusinessTrips(),
-                "employmentType", user.getEmploymentType(),
-                "workSchedule", user.getWorkMode(),
-                "citizenship", user.getCitizenship(),
-                "country", user.getCountry()
-        );
+        List<Work> works = workRepository.findAllByUserId(user.getId());
+        List<Education> educations = educationRepository.findAllByUserId(user.getId());
 
-        return ResponseEntity.ok(portfolioData);
+        Random random = new Random();
+        Map<String, Object> response = new HashMap<>();
+        response.put("header", HEADERS.get(random.nextInt(HEADERS.size())));
+        response.put("firstName", user.getName());
+        response.put("lastName", user.getSurname());
+        response.put("email", user.getEmail());
+        response.put("phoneNumber", user.getPhoneNumber());
+        response.put("country", user.getCountry());
+        response.put("citizenship", user.getCitizenship());
+        response.put("businessTrips", user.getBusinessTrips());
+        response.put("employment", user.getEmploymentType());
+        response.put("workMode", user.getWorkMode());
+        response.put("works", works);
+        response.put("educations", educations);
+
+        return ResponseEntity.ok(response);
     }
 
     private static final List<String> HEADERS = List.of(

@@ -18,6 +18,7 @@ public class PortfolioFormDTO {
     private String lastName;
     private LocalDate dob;
     private String country;
+    private String citizenship;
     private String phone;
     //private MultipartFile photo; // Для обработки фото
     private Enums.Gender gender;
