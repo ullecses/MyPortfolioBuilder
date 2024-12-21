@@ -5,12 +5,15 @@ import com.example.myportfoliobuilder.dto.LanguageDTO;
 import com.example.myportfoliobuilder.dto.PortfolioFormDTO;
 import com.example.myportfoliobuilder.dto.WorkDTO;
 import com.example.myportfoliobuilder.models.*;
+import com.example.myportfoliobuilder.repositories.UserRepository;
+import com.example.myportfoliobuilder.repositories.WorkRepository;
 import com.example.myportfoliobuilder.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
@@ -40,8 +43,11 @@ public class PortfolioController {
     @Autowired
     private LanguageService languageService;
 
-    @PostMapping
-    public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
+    @Autowired
+    private PhotoService photoService;
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createPortfolio(@ModelAttribute PortfolioFormDTO formDTO) throws IOException {
         User user = userService.findByEmail(formDTO.getUserEmail()).get();
         user.setName(formDTO.getFirstName());
         user.setSurname(formDTO.getLastName());
@@ -56,15 +62,12 @@ public class PortfolioController {
         user.setWorkMode(formDTO.getWorkMode());
         userService.saveUser(user);
         // Сохраняем фотографию
-        /*if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
+        if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
             MultipartFile photoFile = formDTO.getPhoto();
-            Photo photo = new Photo();
-            photo.setData(photoFile.getBytes());
-            photo.setUser(user);
-            user.setPhoto(photo);
-        }*/
+            photoService.savePhoto(photoFile, user);
+        }
 
-        if (formDTO.getWorks() != null) {
+        /*if (formDTO.getWorks() != null) {
             for (WorkDTO workDTO : formDTO.getWorks()) {
                 Work work = new Work();
                 work.setPosition(workDTO.getPosition());
@@ -103,7 +106,7 @@ public class PortfolioController {
 
                 languageService.saveLanguage(language);
             }
-        }
+        }*/
 
         return ResponseEntity.ok("Portfolio created successfully");
     }
@@ -131,6 +134,7 @@ public class PortfolioController {
         response.put("phoneNumber", user.getPhoneNumber());
         response.put("country", user.getCountry());
         response.put("citizenship", user.getCitizenship());
+        response.put("desiredPosition", user.getDesiredPosition());
         response.put("businessTrips", user.getBusinessTrips());
         response.put("employment", user.getEmploymentType());
         response.put("workMode", user.getWorkMode());

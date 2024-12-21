@@ -2,7 +2,6 @@ package com.example.myportfoliobuilder.controllers;
 
 import com.example.myportfoliobuilder.dto.UserRequestDTO;
 import com.example.myportfoliobuilder.models.User;
-//import com.example.myportfoliobuilder.services.JwtService;
 import com.example.myportfoliobuilder.services.JwtService;
 import com.example.myportfoliobuilder.services.UserService;
 import org.apache.log4j.Logger;

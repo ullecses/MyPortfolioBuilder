@@ -79,11 +79,18 @@ public class UserService {
     // Сохранить нового пользователя
     public User saveUser(User user) {
         LOGGER.info("Saving user with email: " + user.getEmail());
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        /*if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             LOGGER.warn("User with email " + user.getEmail() + " already exists.");
             throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists.");
-        }
+        }*/
 
+        User savedUser = userRepository.save(user);
+        LOGGER.info("User saved successfully with id: " + savedUser.getId());
+        return savedUser;
+    }
+
+    public User updateUser(User user) {
+        LOGGER.info("Saving user with email: " + user.getEmail());
         User savedUser = userRepository.save(user);
         LOGGER.info("User saved successfully with id: " + savedUser.getId());
         return savedUser;
