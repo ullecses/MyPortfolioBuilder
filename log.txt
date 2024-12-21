@@ -30,3 +30,9 @@
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting creation date: 2024-11-30
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
 2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
+2024-12-21 13:01:16 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-21 13:01:19 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-21 13:01:19 INFO  [restartedMain]: Database connection closed.
+2024-12-21 13:07:20 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-21 13:07:23 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-12-21 13:07:23 INFO  [restartedMain]: Database connection closed.

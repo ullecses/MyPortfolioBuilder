@@ -1,7 +1,11 @@
 package com.example.myportfoliobuilder.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "works")
 public class Work {
@@ -40,14 +44,6 @@ public class Work {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
     }
 
 }
