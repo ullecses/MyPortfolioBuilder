@@ -1,6 +1,8 @@
 package com.example.myportfoliobuilder.services;
 
+import com.example.myportfoliobuilder.models.EmailVerificationToken;
 import com.example.myportfoliobuilder.models.User;
+import com.example.myportfoliobuilder.repositories.EmailVerificationTokenRepository;
 import com.example.myportfoliobuilder.repositories.UserRepository;
 import com.example.myportfoliobuilder.util.PasswordUtil;
 import org.apache.log4j.Logger;
@@ -19,14 +21,21 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private EmailVerificationTokenRepository emailVerificationTokenRepository;
+
+
     // Метод для регистрации нового пользователя
     public User registerUser(String email, String rawPassword) {
-        LOGGER.info("Registering new user with email: " + email);
+        LOGGER.info("Attempting to register new user with email: " + email);
+        Optional<EmailVerificationToken> emailVerificationTokenOptional = emailVerificationTokenRepository.findByEmail(email);
 
-        // Проверка на существование пользователя с данным email
-        if (userRepository.findByEmail(email).isPresent()) {
-            LOGGER.warn("User with email " + email + " already exists.");
-            throw new IllegalArgumentException("User with email " + email + " already exists.");
+        if (emailVerificationTokenOptional.isPresent() && !emailVerificationTokenOptional.get().isVerified()) {
+            LOGGER.error("Email is not verified for: " + email);
+            throw new RuntimeException("Email is not verified.");
         }
 
         User user = new User();
@@ -35,60 +44,60 @@ public class UserService {
         // Хэшируем пароль перед сохранением
         String hashedPassword = PasswordUtil.hashPassword(rawPassword);
         user.setPassword(hashedPassword);
+
         user.setCreatedAt(LocalDate.now());
 
         User savedUser = userRepository.save(user);
-        LOGGER.info("User registered successfully with id: " + savedUser.getId());
+        LOGGER.info("User registered successfully with email: " + email + " and id: " + savedUser.getId());
         return savedUser;
     }
 
     // Метод для проверки логина
     public boolean login(String email, String rawPassword) {
+        LOGGER.info("Attempting login for email: " + email);
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get(); // Получаем пользователя
             // Проверка пароля
-            return PasswordUtil.checkPassword(rawPassword, user.getPassword());
+            boolean isPasswordCorrect = PasswordUtil.checkPassword(rawPassword, user.getPassword());
+            if (isPasswordCorrect) {
+                LOGGER.info("Login successful for email: " + email);
+            } else {
+                LOGGER.warn("Incorrect password for email: " + email);
+            }
+            return isPasswordCorrect;
+        } else {
+            LOGGER.warn("User not found with email: " + email);
+            return false;
         }
-        return false;
     }
 
-    // Получить всех пользователей
+    // Найти всех пользователей
     public List<User> findAll() {
-        LOGGER.info("Fetching all users");
-        return userRepository.findAll();
+        LOGGER.info("Fetching all users.");
+        List<User> users = userRepository.findAll();
+        LOGGER.info("Found " + users.size() + " users.");
+        return users;
     }
 
     // Найти пользователя по ID
     public Optional<User> findById(Long id) {
         LOGGER.info("Fetching user with id: " + id);
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            LOGGER.info("User found with id: " + id);
-        } else {
-            LOGGER.warn("User not found with id: " + id);
-            throw new IllegalArgumentException("User with id " + id + " not exists.");
-        }
-        return user;
+        return userRepository.findById(id);
     }
 
     public Optional<User> findByEmail(String email) {
+        LOGGER.info("Fetching user with email: " + email);
         return userRepository.findByEmail(email);
     }
 
     // Сохранить нового пользователя
     public User saveUser(User user) {
-        LOGGER.info("Saving user with email: " + user.getEmail());
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            LOGGER.warn("User with email " + user.getEmail() + " already exists.");
-            throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists.");
-        }
-
-        User savedUser = userRepository.save(user);
-        LOGGER.info("User saved successfully with id: " + savedUser.getId());
-        return savedUser;
+        LOGGER.info("Saving new user with email: " + user.getEmail());
+        return userRepository.save(user);
     }
 
+    // Обновить пользователя
     public User updateUser(Long id, User userDetails) {
         LOGGER.info("Updating user with id: " + id);
 
@@ -103,12 +112,12 @@ public class UserService {
         user.setPassword(PasswordUtil.hashPassword(userDetails.getPassword()));
         User updatedUser = userRepository.save(user);
         LOGGER.info("User updated successfully with id: " + updatedUser.getId());
-            return updatedUser;
+        return updatedUser;
     }
 
     // Удалить пользователя
     public void deleteUser(Long id) {
-        LOGGER.info("Deleting user with id: " + id);
+        LOGGER.info("Attempting to delete user with id: " + id);
 
         if (!userRepository.existsById(id)) {
             LOGGER.warn("User not found with id: " + id);
