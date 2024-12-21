@@ -20,7 +20,7 @@ public class PortfolioFormDTO {
     private String country;
     private String citizenship;
     private String phone;
-    private MultipartFile photo; // Для обработки фото
+    //private MultipartFile photo; // Для обработки фото
     private Enums.Gender gender;
     private Enums.BusinessTrips businessTrips;
     private Enums.EmploymentType employment;

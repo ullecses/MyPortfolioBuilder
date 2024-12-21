@@ -47,7 +47,7 @@ public class PortfolioController {
     private PhotoService photoService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createPortfolio(@ModelAttribute PortfolioFormDTO formDTO) throws IOException {
+    public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
         User user = userService.findByEmail(formDTO.getUserEmail()).get();
         user.setName(formDTO.getFirstName());
         user.setSurname(formDTO.getLastName());
@@ -62,12 +62,12 @@ public class PortfolioController {
         user.setWorkMode(formDTO.getWorkMode());
         userService.saveUser(user);
         // Сохраняем фотографию
-        if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
+        /*if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
             MultipartFile photoFile = formDTO.getPhoto();
             photoService.savePhoto(photoFile, user);
-        }
+        }*/
 
-        /*if (formDTO.getWorks() != null) {
+        if (formDTO.getWorks() != null) {
             for (WorkDTO workDTO : formDTO.getWorks()) {
                 Work work = new Work();
                 work.setPosition(workDTO.getPosition());
@@ -98,7 +98,9 @@ public class PortfolioController {
         }
 
         if (formDTO.getLanguages() != null) {
+            System.out.println("зашел раз");
             for (LanguageDTO languageDTO : formDTO.getLanguages()) {
+                System.out.println("зашел два");
                 Language language = new Language();
                 language.setLanguage(languageDTO.getLanguage());
                 language.setLevel(languageDTO.getLevel());
@@ -106,8 +108,7 @@ public class PortfolioController {
 
                 languageService.saveLanguage(language);
             }
-        }*/
-
+        }
         return ResponseEntity.ok("Portfolio created successfully");
     }
 
@@ -157,13 +158,13 @@ public class PortfolioController {
     );
 
     // Получить портфолио по id
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<Portfolio> getPortfolioById(@PathVariable Long id) {
         LOGGER.info("Received request to get portfolio with id: " + id + IN_CONTROLLER);
         Portfolio portfolio = portfolioService.getPortfolioById(id);
         LOGGER.info("Returning portfolio with id: " + id + IN_CONTROLLER);
         return ResponseEntity.ok(portfolio);
-    }
+    }*/
 
     // Обновить портфолио
     @PutMapping("/{id}")
