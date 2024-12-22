@@ -5,17 +5,20 @@ import com.example.myportfoliobuilder.dto.LanguageDTO;
 import com.example.myportfoliobuilder.dto.PortfolioFormDTO;
 import com.example.myportfoliobuilder.dto.WorkDTO;
 import com.example.myportfoliobuilder.models.*;
-import com.example.myportfoliobuilder.repositories.UserRepository;
-import com.example.myportfoliobuilder.repositories.WorkRepository;
 import com.example.myportfoliobuilder.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static com.example.myportfoliobuilder.config.WebConfig.IPFRONT;
@@ -46,8 +49,8 @@ public class PortfolioController {
     @Autowired
     private PhotoService photoService;
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createPortfolio(@RequestBody PortfolioFormDTO formDTO) throws IOException {
+    @PostMapping("/create-test")
+    public ResponseEntity<String> createPortfolio(@ModelAttribute PortfolioFormDTO formDTO) throws IOException {
         User user = userService.findByEmail(formDTO.getUserEmail()).get();
         user.setName(formDTO.getFirstName());
         user.setSurname(formDTO.getLastName());
@@ -60,12 +63,12 @@ public class PortfolioController {
         user.setBusinessTrips(formDTO.getBusinessTrips());
         user.setEmploymentType(formDTO.getEmployment());
         user.setWorkMode(formDTO.getWorkMode());
-        userService.saveUser(user);
+        userService.updateUser(user);
         // Сохраняем фотографию
-        /*if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
+        if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
             MultipartFile photoFile = formDTO.getPhoto();
             photoService.savePhoto(photoFile, user);
-        }*/
+        }
 
         if (formDTO.getWorks() != null) {
             for (WorkDTO workDTO : formDTO.getWorks()) {
@@ -112,8 +115,74 @@ public class PortfolioController {
         return ResponseEntity.ok("Portfolio created successfully");
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<String> createPortfolioTest(@ModelAttribute PortfolioFormDTO formDTO) throws IOException {
+        User user = userService.findByEmail(formDTO.getUserEmail()).get();
+        user.setName(formDTO.getFirstName());
+        user.setSurname(formDTO.getLastName());
+        user.setDesiredPosition(formDTO.getDesiredPosition());
+        user.setCountry(formDTO.getCountry());
+        user.setCitizenship(formDTO.getCitizenship());
+        user.setPhoneNumber(formDTO.getPhone());
+        user.setEmail(formDTO.getUserEmail());
+        user.setGender(formDTO.getGender());
+        user.setBusinessTrips(formDTO.getBusinessTrips());
+        user.setEmploymentType(formDTO.getEmployment());
+        user.setWorkMode(formDTO.getWorkMode());
+        userService.saveUser(user);
+        // Сохраняем фотографию
+        if (formDTO.getPhoto() != null && !formDTO.getPhoto().isEmpty()) {
+            MultipartFile photoFile = formDTO.getPhoto();
+            photoService.savePhoto(photoFile, user);
+        }
+
+        /*if (formDTO.getWorks() != null) {
+            for (WorkDTO workDTO : formDTO.getWorks()) {
+                Work work = new Work();
+                work.setPosition(workDTO.getPosition());
+                work.setCompany(workDTO.getCompany());
+                work.setCity(workDTO.getCity());
+                work.setStartDate(workDTO.getStartDate());
+                work.setEndDate(workDTO.getEndDate());
+                work.setJobsInfo(workDTO.getJobsInfo());
+                work.setUser(user);
+
+                workService.saveWork(work);
+            }
+        }
+
+        if (formDTO.getEducations() != null) {
+            for (EducationDTO educationDTO : formDTO.getEducations()) {
+                Education education = new Education();
+                education.setSpecialization(educationDTO.getSpecialization());
+                education.setInstitution(educationDTO.getInstitution());
+                education.setCity(educationDTO.getCity());
+                education.setStartDate(educationDTO.getStartDate());
+                education.setEndDate(educationDTO.getEndDate());
+                education.setEducationInfo(educationDTO.getEducationInfo());
+                education.setUser(user);
+
+                educationService.saveEducation(education);
+            }
+        }
+
+        if (formDTO.getLanguages() != null) {
+            System.out.println("зашел раз");
+            for (LanguageDTO languageDTO : formDTO.getLanguages()) {
+                System.out.println("зашел два");
+                Language language = new Language();
+                language.setLanguage(languageDTO.getLanguage());
+                language.setLevel(languageDTO.getLevel());
+                language.setUser(user);
+
+                languageService.saveLanguage(language);
+            }
+        }*/
+        return ResponseEntity.ok("Portfolio created successfully");
+    }
+
     @GetMapping
-    public ResponseEntity<Map<String, Object>> generateUserPortfolio(@RequestParam String email) {
+    public ResponseEntity<Map<String, Object>> generateUserPortfolio(@RequestParam String email) throws IOException {
         Optional<User> userOptional = userService.findByEmail(email);
 
         if (userOptional.isEmpty()) {
@@ -122,12 +191,25 @@ public class PortfolioController {
         }
 
         User user = userOptional.get();
+
+        Random random = new Random();
+        Map<String, Object> response = new HashMap<>();
+
         List<Work> works = workService.getWorksByUserId(user.getId());
         List<Education> educations = educationService.getEducationsByUserId(user.getId());
         List<Language> languages = languageService.getLanguagesByUserId(user.getId());
 
-        Random random = new Random();
-        Map<String, Object> response = new HashMap<>();
+        List<Resource> photos = photoService.getPhotosByUserId(user.getId());
+        if (!photos.isEmpty()) {
+            Resource photo = photos.get(0); // Берём первую фотографию
+            Path photoPath = Paths.get(photo.getFile().getPath());
+            byte[] photoBytes = Files.readAllBytes(photoPath); // Читаем файл в байты
+
+            // Конвертируем в Base64
+            String base64EncodedPhoto = Base64.getEncoder().encodeToString(photoBytes);
+            response.put("photo",base64EncodedPhoto);
+        }
+
         response.put("header", HEADERS.get(random.nextInt(HEADERS.size())));
         response.put("firstName", user.getName());
         response.put("lastName", user.getSurname());
@@ -145,6 +227,30 @@ public class PortfolioController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/test/{userId}")
+    public ResponseEntity<String> downloadPhotoByUserId(@PathVariable Long userId) {
+        try {
+            List<Resource> photos = photoService.getPhotosByUserId(userId);
+
+            if (!photos.isEmpty()) {
+                Resource photo = photos.get(0); // Берём первую фотографию
+                Path photoPath = Paths.get(photo.getFile().getPath());
+                byte[] photoBytes = Files.readAllBytes(photoPath); // Читаем файл в байты
+
+                // Конвертируем в Base64
+                String base64EncodedPhoto = Base64.getEncoder().encodeToString(photoBytes);
+
+                return ResponseEntity.ok(base64EncodedPhoto); // Возвращаем строку Base64
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Photo not found for user ID: " + userId);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while processing the photo.");
+        }
+    }
+
 
     private static final List<String> HEADERS = List.of(
             "Ответственный и целеустремлённый специалист с отличными навыками организации и планирования. Легко адаптируюсь к новым задачам и стремлюсь к постоянному развитию. Отлично работаю в команде и готов к новым вызовам.",
