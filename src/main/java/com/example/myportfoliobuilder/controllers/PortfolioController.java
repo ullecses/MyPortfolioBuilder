@@ -75,7 +75,7 @@ public class PortfolioController {
                 Work work = new Work();
                 work.setPosition(workDTO.getPosition());
                 work.setCompany(workDTO.getCompany());
-                //work.setCity(workDTO.getCity());
+                work.setCity(workDTO.getCity());
                 work.setStartDate(workDTO.getStartDate());
                 work.setEndDate(workDTO.getEndDate());
                 work.setJobsInfo(workDTO.getJobsInfo());
@@ -90,10 +90,10 @@ public class PortfolioController {
                 Education education = new Education();
                 education.setSpecialization(educationDTO.getSpecialization());
                 education.setInstitution(educationDTO.getInstitution());
-                //education.setCity(educationDTO.getCity());
+                education.setCity(educationDTO.getCity());
                 education.setStartDate(educationDTO.getStartDate());
                 education.setEndDate(educationDTO.getEndDate());
-                //education.setEducationInfo(educationDTO.getEducationInfo());
+                education.setEducationInfo(educationDTO.getEducationInfo());
                 education.setUser(user);
 
                 educationService.saveEducation(education);
@@ -157,22 +157,6 @@ public class PortfolioController {
 
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/test/{userId}")
-    public ResponseEntity<String> downloadPhotoByUserId(@PathVariable Long userId) {
-        try {
-            Resource photo = photoService.getPhotosByUserId(userId);
-            Path photoPath = Paths.get(photo.getFile().getPath());
-            byte[] photoBytes = Files.readAllBytes(photoPath); // Читаем файл в байты
-            // Конвертируем в Base64
-            String base64EncodedPhoto = Base64.getEncoder().encodeToString(photoBytes);
-            return ResponseEntity.ok(base64EncodedPhoto);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while processing the photo.");
-        }
-    }
-
 
     private static final List<String> HEADERS = List.of(
             "Ответственный и целеустремлённый специалист с отличными навыками организации и планирования. Легко адаптируюсь к новым задачам и стремлюсь к постоянному развитию. Отлично работаю в команде и готов к новым вызовам.",

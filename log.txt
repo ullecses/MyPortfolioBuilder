@@ -1,3 +1,4 @@
+2024-12-22 21:37:15 INFO  [restartedMain]: Portfolio object created with default constructor.
 2024-11-30 15:12:45 INFO  [restartedMain]: Portfolio object created with default constructor.
 2024-11-30 15:12:47 INFO  [restartedMain]: Connected to PostgreSQL database!
 2024-11-30 15:12:47 INFO  [restartedMain]: Database connection closed.
@@ -387,3 +388,5 @@
 2024-12-22 21:34:50 INFO  [http-nio-0.0.0.0-8080-exec-4]: User saved successfully with id: 2
 2024-12-22 21:34:51 INFO  [http-nio-0.0.0.0-8080-exec-5]: Saving user with email: Kati33423@gmail.com
 2024-12-22 21:34:51 INFO  [http-nio-0.0.0.0-8080-exec-5]: User saved successfully with id: 2
+2024-12-22 21:39:29 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-12-22 21:39:32 INFO  [restartedMain]: Connected to PostgreSQL database!
