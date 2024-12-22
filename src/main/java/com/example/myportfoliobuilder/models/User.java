@@ -2,12 +2,16 @@ package com.example.myportfoliobuilder.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
@@ -22,12 +26,12 @@ public class User {
 
     @Column(name = "name")
     private String name;
-
     @Column(name = "surname")
     private String surname;
 
     @Column(nullable = false, unique = true)
     private String email;
+
 
     @Column(nullable = false, name = "password_hash")
     private String password;
