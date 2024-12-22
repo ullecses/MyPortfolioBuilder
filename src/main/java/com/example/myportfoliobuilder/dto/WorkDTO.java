@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class WorkDTO {
     private String position;
     private String company;
-    private String city;
+    //private String city;
     private LocalDate startDate;
     private LocalDate endDate;
     private String jobsInfo;

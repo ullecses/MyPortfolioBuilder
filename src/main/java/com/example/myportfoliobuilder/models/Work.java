@@ -27,8 +27,8 @@ public class Work {
     @Column(nullable = false)
     private String company; // Компания
 
-    @Column
-    private String city; // Город
+    /*@Column
+    private String city; // Город*/
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate; // Дата начала

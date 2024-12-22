@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class PhotoService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public Photo savePhoto(MultipartFile file, User user) throws IOException {
         // Создаем уникальное имя для файла
         /*String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
@@ -54,7 +56,9 @@ public class PhotoService {
             Files.deleteIfExists(oldPhotoPath);
 
             // Удаляем старую запись в базе данных
-            photoRepository.delete(existingPhoto);
+            photoRepository.deleteByUserId(user.getId());
+            System.out.println(" удалили");
+            //photoRepository.delete(existingPhoto);
         }
 
         // Создаем уникальное имя для нового файла
@@ -75,25 +79,20 @@ public class PhotoService {
         return photoRepository.save(newPhoto);
     }
 
-    public List<Resource> getPhotosByUserId(Long userId) throws IOException {
-        List<Photo> photos = photoRepository.findByUserId(userId);
+    public Resource getPhotosByUserId(Long userId) throws IOException {
+        Photo photo = photoRepository.findByUserId(userId);
 
-        if (photos.isEmpty()) {
+        if (photo == null) {
             throw new IllegalArgumentException("No photos found for user ID: " + userId);
         }
 
-        List<Resource> resources = new ArrayList<>();
-        for (Photo photo : photos) {
-            Path filePath = Paths.get(photo.getFilePath());
-            Resource resource = new UrlResource(filePath.toUri());
+        Path filePath = Paths.get(photo.getFilePath());
+        Resource resource = new UrlResource(filePath.toUri());
 
-            if (!resource.exists() || !resource.isReadable()) {
-                throw new IOException("File not found or not readable: " + filePath);
-            }
-
-            resources.add(resource);
+        if (!resource.exists() || !resource.isReadable()) {
+            throw new IOException("File not found or not readable: " + filePath);
         }
 
-        return resources;
+        return resource;
     }
 }

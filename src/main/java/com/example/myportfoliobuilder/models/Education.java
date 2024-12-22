@@ -27,8 +27,8 @@ public class Education {
     @Column(nullable = false)
     private String institution;
 
-    @Column
-    private String city; // Город
+    /*@Column
+    private String city; // Город*/
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate; // Дата начала
@@ -36,8 +36,8 @@ public class Education {
     @Column(name = "end_date")
     private LocalDate endDate; // Дата окончания
 
-    @Column(name = "education_info", columnDefinition = "TEXT")
-    private String educationInfo;
+    /*@Column(name = "education_info", columnDefinition = "TEXT")
+    private String educationInfo;*/
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

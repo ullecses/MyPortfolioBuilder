@@ -12,9 +12,9 @@ import java.time.LocalDate;
 public class EducationDTO {
     private String specialization;
     private String institution;
-    private String city;
+    //private String city;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String educationInfo;
+    //private String educationInfo;
 }
 
