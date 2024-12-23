@@ -16,6 +16,10 @@ public class EducationService {
         return educationRepository.save(education);
     }
 
+    public void deleteAllEducation(Long userId) {
+        educationRepository.deleteAllByUserId(userId);
+    }
+
     public List<Education> getEducationsByUserId(Long userId) {
         return educationRepository.findAllByUserId(userId);
     }

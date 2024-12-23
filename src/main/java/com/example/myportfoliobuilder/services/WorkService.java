@@ -16,6 +16,10 @@ public class WorkService {
         return workRepository.save(work);
     }
 
+    public void deleteAllWorks(Long userId) {
+        workRepository.deleteAllByUserId(userId);
+    }
+
     public List<Work> getWorksByUserId(Long userId) {
         return workRepository.findAllByUserId(userId);
     }

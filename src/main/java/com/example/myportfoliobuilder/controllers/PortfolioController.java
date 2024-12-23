@@ -9,7 +9,6 @@ import com.example.myportfoliobuilder.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +70,7 @@ public class PortfolioController {
         }
 
         if (formDTO.getWorks() != null) {
+            workService.deleteAllWorks(user.getId());
             for (WorkDTO workDTO : formDTO.getWorks()) {
                 Work work = new Work();
                 work.setPosition(workDTO.getPosition());
@@ -86,6 +86,7 @@ public class PortfolioController {
         }
 
         if (formDTO.getEducations() != null) {
+            educationService.deleteAllEducation(user.getId());
             for (EducationDTO educationDTO : formDTO.getEducations()) {
                 Education education = new Education();
                 education.setSpecialization(educationDTO.getSpecialization());
@@ -101,9 +102,8 @@ public class PortfolioController {
         }
 
         if (formDTO.getLanguages() != null) {
-            System.out.println("зашел раз");
+            languageService.deleteAllLanguages(user.getId());
             for (LanguageDTO languageDTO : formDTO.getLanguages()) {
-                System.out.println("зашел два");
                 Language language = new Language();
                 language.setLanguage(languageDTO.getLanguage());
                 language.setLevel(languageDTO.getLevel());
@@ -168,15 +168,6 @@ public class PortfolioController {
             "Исполнительный и преданный делу сотрудник, обладающий отличными навыками межличностного взаимодействия. Всегда нацелен на достижение высоких результатов и качественное выполнение задач. Известен своей креативностью и надёжностью.",
             "Проактивный и ориентированный на результат специалист с сильными аналитическими навыками. Легко справляюсь со сложными задачами и всегда ищу новые пути для улучшения. Стремлюсь к постоянному совершенствованию своих навыков."
     );
-
-    // Получить портфолио по id
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Portfolio> getPortfolioById(@PathVariable Long id) {
-        LOGGER.info("Received request to get portfolio with id: " + id + IN_CONTROLLER);
-        Portfolio portfolio = portfolioService.getPortfolioById(id);
-        LOGGER.info("Returning portfolio with id: " + id + IN_CONTROLLER);
-        return ResponseEntity.ok(portfolio);
-    }*/
 
     // Обновить портфолио
     @PutMapping("/{id}")
