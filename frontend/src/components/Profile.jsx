@@ -31,7 +31,7 @@ function Profile() {
       }
 
         // Подключаемся к WebSocket-серверу
-        ws.current = new WebSocket('ws://localhost:8001');
+        ws.current = new WebSocket('ws://localhost:8080/chat');
 
         // Обработка входящих сообщений
         ws.current.onmessage = (event) => {

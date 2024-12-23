@@ -26,7 +26,7 @@ const handleSubmit = async (e) => {
   console.log('Sending user data to API:', userData);
   
   try {
-    const response = await fetch('localhost:8080/api/users/login', {
+    const response = await fetch('http://localhost:8080/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,6 +50,7 @@ const handleSubmit = async (e) => {
       if (data.jwt && data.jwt !== 'not ok') {
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('token', data.jwt); // Сохранение JWT
+        localStorage.setItem('userEmail', email); // Сохраняем email
         console.log('JWT Token:', data.jwt); // Вывод токена в консоль
         navigate('/');
       } else {

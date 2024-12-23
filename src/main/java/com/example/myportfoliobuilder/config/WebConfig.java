@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    public static final String IPFRONT = "http://26.229.75.96:3000";  // IP адрес фронтенда
+    public static final String IPFRONT = "http://localhost:3000";  // IP адрес фронтенда
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
