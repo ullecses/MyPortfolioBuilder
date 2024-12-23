@@ -1,0 +1,32 @@
+2024-11-30 15:12:45 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-11-30 15:12:47 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-11-30 15:12:47 INFO  [restartedMain]: Database connection closed.
+2024-11-30 15:34:38 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-11-30 15:34:40 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-11-30 15:34:40 INFO  [restartedMain]: Database connection closed.
+2024-11-30 15:52:00 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-11-30 15:54:48 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-11-30 15:54:50 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-11-30 15:54:50 INFO  [restartedMain]: Database connection closed.
+2024-11-30 15:54:53 INFO  [http-nio-0.0.0.0-8080-exec-1]: Received request to register a new user with email: newuser@example.com in UserController
+2024-11-30 15:54:53 INFO  [http-nio-0.0.0.0-8080-exec-1]: Registering new user with email: newuser@example.com
+2024-11-30 15:54:53 WARN  [http-nio-0.0.0.0-8080-exec-1]: User with email newuser@example.com already exists.
+2024-11-30 15:55:50 INFO  [http-nio-0.0.0.0-8080-exec-2]: Received request to register a new user with email: newuser@example.com in UserController
+2024-11-30 15:55:50 INFO  [http-nio-0.0.0.0-8080-exec-2]: Registering new user with email: newuser@example.com
+2024-11-30 15:55:50 WARN  [http-nio-0.0.0.0-8080-exec-2]: User with email newuser@example.com already exists.
+2024-11-30 15:56:41 INFO  [http-nio-0.0.0.0-8080-exec-3]: Received request to register a new user with email: user@example.com in UserController
+2024-11-30 15:56:41 INFO  [http-nio-0.0.0.0-8080-exec-3]: Registering new user with email: user@example.com
+2024-11-30 15:56:41 WARN  [http-nio-0.0.0.0-8080-exec-3]: User with email user@example.com already exists.
+2024-11-30 15:57:26 INFO  [http-nio-0.0.0.0-8080-exec-4]: Received request to register a new user with email: nfvndiuuser@example.com in UserController
+2024-11-30 15:57:26 INFO  [http-nio-0.0.0.0-8080-exec-4]: Registering new user with email: nfvndiuuser@example.com
+2024-11-30 15:57:26 WARN  [http-nio-0.0.0.0-8080-exec-4]: User with email nfvndiuuser@example.com already exists.
+2024-11-30 15:58:56 INFO  [restartedMain]: Portfolio object created with default constructor.
+2024-11-30 15:58:58 INFO  [restartedMain]: Connected to PostgreSQL database!
+2024-11-30 15:58:58 INFO  [restartedMain]: Database connection closed.
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Received request to register a new user with email: nfvndiuuser@example.com in UserController
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Registering new user with email: nfvndiuuser@example.com
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting email: nfvndiuuser@example.com
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting password hash.
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: Setting creation date: 2024-11-30
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1
+2024-11-30 15:59:22 INFO  [http-nio-0.0.0.0-8080-exec-1]: User registered successfully with id: 1

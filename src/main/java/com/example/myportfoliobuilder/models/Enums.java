@@ -10,12 +10,8 @@ public class Enums {
         FULL_TIME, PART_TIME, FREELANCE, INTERNSHIP
     }
 
-    public enum WorkCharacter {
-        ON_SITE, MOBILE, REMOTE
-    }
-
-    public enum WorkSchedule {
-        FIXED, FULL_DAY, SHIFT, FLEXIBLE, ROTATIONAL
+    public enum WorkMode {
+        OFFICE, HYBRID, REMOTE
     }
 
     public enum Gender {

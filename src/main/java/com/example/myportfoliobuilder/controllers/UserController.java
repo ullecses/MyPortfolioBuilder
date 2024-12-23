@@ -43,8 +43,11 @@ public class UserController {
     private EmailVerificationTokenRepository emailVerificationTokenRepository;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        LOGGER.info("Received request to fetch all users" + IN_CONTROLLER);
+        List<User> users = userService.findAll();
+        LOGGER.info("Returning " + users.size() + " users");
+        return ResponseEntity.ok(users);
     }
 
     // Обработка POST-запроса для регистрации нового пользователя

@@ -14,18 +14,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "works")
-public class Work {
+@Table(name = "educations")
+public class Education {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String position; // Должность
+    private String specialization;
 
     @Column(nullable = false)
-    private String company; // Компания
+    private String institution;
 
     @Column
     private String city; // Город
@@ -36,8 +36,8 @@ public class Work {
     @Column(name = "end_date")
     private LocalDate endDate; // Дата окончания
 
-    @Column(name = "jobs_info", columnDefinition = "TEXT")
-    private String jobsInfo; // Информация о работе
+    @Column(name = "education_info", columnDefinition = "TEXT")
+    private String educationInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

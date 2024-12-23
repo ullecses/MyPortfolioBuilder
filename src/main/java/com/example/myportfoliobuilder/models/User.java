@@ -9,8 +9,8 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
@@ -23,12 +23,12 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
 
     @Column(nullable = false, unique = true)
     private String email;
-
 
     @Column(nullable = false, name = "password_hash")
     private String password;
@@ -39,8 +39,20 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Enums.Gender gender;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "business_trips")
+    private Enums.BusinessTrips businessTrips;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "employment_type")
+    private Enums.EmploymentType employmentType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work_mode")
+    private Enums.WorkMode workMode;
+
+    @Column(name = "desiredPosition")
+    private String desiredPosition;
 
     @Column(name = "citizenship")
     private String citizenship;
@@ -52,10 +64,21 @@ public class User {
     private String phoneNumber;
 
     // Связь с портфолио
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Portfolio> portfolios;
 
-    // Связь с профессиональной информацией
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Professional> professionals;
+    // Связь с работами
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Work> works;
+
+    // Связь с образованиями
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Education> educations;
+
+    // Связь с языками
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Language> languages;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Photo photo;
 }

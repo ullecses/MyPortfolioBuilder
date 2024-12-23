@@ -44,7 +44,6 @@ public class UserService {
         // Хэшируем пароль перед сохранением
         String hashedPassword = PasswordUtil.hashPassword(rawPassword);
         user.setPassword(hashedPassword);
-
         user.setCreatedAt(LocalDate.now());
 
         User savedUser = userRepository.save(user);
@@ -94,7 +93,20 @@ public class UserService {
     // Сохранить нового пользователя
     public User saveUser(User user) {
         LOGGER.info("Saving new user with email: " + user.getEmail());
-        return userRepository.save(user);
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            LOGGER.warn("User with email " + user.getEmail() + " already exists.");
+            throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists.");
+        }
+
+        User savedUser = userRepository.save(user);
+        LOGGER.info("User saved successfully with id: " + savedUser.getId());
+        return savedUser;
+    }
+
+    public void updateUser(User user) {
+        LOGGER.info("Saving user with email: " + user.getEmail());
+        User savedUser = userRepository.save(user);
+        LOGGER.info("User saved successfully with id: " + savedUser.getId());
     }
 
     // Обновить пользователя

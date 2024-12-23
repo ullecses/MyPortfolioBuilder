@@ -1,5 +1,6 @@
 package com.example.myportfoliobuilder.config;
 
+import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseConnection {
+
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class);
     @Value("${spring.datasource.url}")  // Подставляем значение из application.properties
     private String url;
 
@@ -38,9 +41,9 @@ public class DatabaseConnection {
 
     public void connect() {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            System.out.println("Connected to PostgreSQL database!");
+            LOGGER.info("Connected to PostgreSQL database!");
         } catch (SQLException e) {
-            System.out.println("Connection failed: " + e.getMessage());
+            LOGGER.error("Connection to PostgreSQL failed: " + e.getMessage(), e);
         }
     }
 }
