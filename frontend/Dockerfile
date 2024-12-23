@@ -10,6 +10,7 @@ COPY package*.json ./
 # Устанавливаем зависимости
 RUN npm install
 
+RUN npm install @stomp/stompjs
 # Копируем остальные файлы
 COPY . .
 
