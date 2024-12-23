@@ -40,7 +40,9 @@ public class DatabaseConnection {
     }
 
     public void connect() {
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, user, password);
             LOGGER.info("Connected to PostgreSQL database!");
         } catch (SQLException e) {
             LOGGER.error("Connection to PostgreSQL failed: " + e.getMessage(), e);
